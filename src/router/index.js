@@ -17,6 +17,16 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
+    {
+      path: '/checklist',
+      name: 'checklist',
+      component: () => import('../views/ChecklistView.vue'),
+    },
+    {
+      path: '/checklist/1',
+      name: 'checklistBefore',
+      component: () => import('../views/CheckDetailView.vue'),
+    },
   ],
 })
 
