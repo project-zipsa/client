@@ -18,9 +18,11 @@
           <p class="font-light text-gray-700 px-8 pb-8">
             계약 전, 중요한 법적 사항과 집주인 정보 등을 확인해보세요.
           </p>
-          <button class="w-80 py-3 rounded-lg bg-[#91D8EA] text-white hover:opacity-90">
-            체크리스트 확인 →
-          </button>
+          <router-link to="/checklist/1">
+            <button class="w-80 py-3 rounded-lg bg-[#91D8EA] text-white hover:opacity-90">
+              체크리스트 확인 →
+            </button>
+          </router-link>
         </section>
         <section
           class="w-[480px] h-[320px] p-4 pb-6 flex flex-col justify-center items-center rounded-xl bg-white border-t-4 border-[#51ACF6] hover:-translate-y-1 transition shadow-[0px_4px_6px_0px_rgba(0,0,0,0.10),0px_10px_15px_0px_rgba(0,0,0,0.10)]"
@@ -32,9 +34,11 @@
           <p class="font-light text-gray-700 px-8 pb-8">
             계약서 서명전, 주의 깊게 체크해야 할 사항들입니다.
           </p>
-          <button class="w-80 py-3 rounded-lg bg-[#51ACF6] text-white hover:opacity-90">
-            체크리스트 확인 →
-          </button>
+          <router-link to="/checklist/2">
+            <button class="w-80 py-3 rounded-lg bg-[#51ACF6] text-white hover:opacity-90">
+              체크리스트 확인 →
+            </button>
+          </router-link>
         </section>
         <section
           class="w-[480px] h-[320px] p-4 pb-6 flex flex-col justify-center items-center rounded-xl bg-white border-t-4 border-[#3B82F6] hover:-translate-y-1 transition shadow-[0px_4px_6px_0px_rgba(0,0,0,0.10),0px_10px_15px_0px_rgba(0,0,0,0.10)]"
@@ -46,9 +50,11 @@
           <p class="font-light text-gray-700 px-8 pb-8">
             계약 후, 중요한 사후 관리 사항을 점검하세요.
           </p>
-          <button class="w-80 py-3 rounded-lg bg-[#3B82F6] text-white hover:opacity-90">
-            체크리스트 확인 →
-          </button>
+          <router-link to="checklist/3">
+            <button class="w-80 py-3 rounded-lg bg-[#3B82F6] text-white hover:opacity-90">
+              체크리스트 확인 →
+            </button>
+          </router-link>
         </section>
       </div>
 
@@ -69,6 +75,14 @@
   </div>
 </template>
 <script>
-export default {}
+import { useRoute } from 'vue-router'
+export default {
+  setup() {
+    const currentRoute = useRoute()
+    return {
+      currentRoute,
+    }
+  },
+}
 </script>
 <style></style>
