@@ -39,15 +39,29 @@
         </div>
       </div>
 
-      <section class="bg-white m-8">
-        <div v-for="(item, index) in checkInfo" :key="index" class="p-10 font-light">
+      <section class="m-8 bg-white">
+        <div v-for="(item, index) in checkInfo" :key="index" class="flex p-10 font-light gap-2">
           <input
             type="checkbox"
             :id="index"
             @change.prevent="toggleCheck(index, $event)"
             :checked="checkStatesById[currentRoute.params.id]?.[index]"
           />
-          {{ item.description }}
+          <div class="inline">
+            {{ item.description }}
+          </div>
+          <span class="relative group cursor-pointer">
+            <img src="@/assets/info.svg" alt="" />
+            <div
+              class="absolute top-1/2 left-full ml-3 w-96 p-3 bg-[#FFF9E3] rounded-lg shadow-md text-sm hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
+            >
+              <h2 class="font-bold">어떻게 확인하나요?</h2>
+              <div>{{ item.info.how }}</div>
+
+              <h2 class="font-bold">예방 가능한 사기유형</h2>
+              <div v-for="(item, index) in item.info.prevent" :key="index">- {{ item }}</div>
+            </div>
+          </span>
         </div>
       </section>
     </form>
@@ -75,7 +89,7 @@ export default {
       const states = checkStatesById.value[id] || []
       const checkedCount = states.filter(Boolean).length
       const total = checklists[id].length
-      progressBar.value[id] = (checkedCount / total) * 100
+      progressBar.value[id] = parseInt((checkedCount / total) * 100)
     }
 
     watch(
