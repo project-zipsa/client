@@ -8,10 +8,10 @@
 
       <form action="" class="relative pl-6">
         <input
-          class="w-[450px] h-9 placeholder-gray-400 placeholder-opacity-75"
+          class="w-[450px] h-9 placeholder-gray-400 pl-10 placeholder-opacity-75"
           type="text"
           v-model.trim="search"
-          placeholder="         Search"
+          placeholder="Search"
         />
         <img
           src="@/assets/_Magnifyingglass.svg"
