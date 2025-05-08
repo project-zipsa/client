@@ -31,6 +31,21 @@ const router = createRouter({
       name: 'dicts',
       component: Dicts,
     },
+    {
+      path: '/docu/upload',
+      name: 'docu-upload',
+      component: () => import('@/pages/DocuUpload.vue'),
+    },
+    {
+      path: '/docu/loading',
+      name: 'docu-loading',
+      component: () => import('@/pages/DocuLoading.vue'),
+    },
+    {
+      path: '/docu/result',
+      name: 'docu-result',
+      component: () => import('@/pages/DocuResult.vue'),
+    },
   ],
 })
 

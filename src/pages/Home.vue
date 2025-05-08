@@ -33,7 +33,7 @@
         <div>
           <h1 class="text-3xl font-bold mb-2 pb-4">나의 계약 분석</h1>
           <p class="text-gray-700 text-xl pb-2">안전한 계약, 그 시작!</p>
-          <router-link to="/">
+          <router-link to="/docu/upload">
             <button class="text-500 font-semibold hover:underline pb-2">바로가기↗</button>
           </router-link>
           <p class="text-gray-700 text-xl pb-2">시세 정보? 여기에 다 있으니까!</p>
