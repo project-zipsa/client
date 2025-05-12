@@ -1,21 +1,6 @@
 <template>
   <div class="bg-[#FFF9E3] min-h-screen">
-    <div class="flex bg-[#FFD43B] p-5">
-      <router-link
-        to="/docu/upload"
-        class="flex bg-[#FFF9E3] p-5 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black]"
-      >
-        <img src="@/assets/c-before.svg" alt="" class="pr-4" />
-        <button class="font-light">내 계약 분석하기</button>
-      </router-link>
-      <router-link
-        to="/"
-        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[0_30px_30px_0] border-[0.5px] border-solid border-[black]"
-      >
-        <img src="@/assets/c-after.svg" alt="" class="pr-4" />
-        <button class="font-light">시세 정보 알아보기</button>
-      </router-link>
-    </div>
+    <MainHeaderComponent />
 
     <div class="flex flex-col items-center">
       <h1 class="font-bold text-4xl p-8 pt-20">주소 입력 및 문서 업로드</h1>
@@ -118,6 +103,7 @@
   </div>
 </template>
 <script setup>
+import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import { useDocsStore } from '@/stores/docs/getData'
 import { onMounted, ref } from 'vue'
 
@@ -145,7 +131,6 @@ const addFileData = () => {
   uploadFile(file)
   file = null
 }
-
 onMounted(() => {
   const script = document.createElement('script')
   script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
