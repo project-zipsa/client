@@ -34,17 +34,17 @@ const router = createRouter({
     {
       path: '/docu/upload',
       name: 'docu-upload',
-      component: () => import('@/pages/DocuUpload.vue'),
+      component: () => import('@/pages/Docu/DocuUpload.vue'),
     },
     {
       path: '/docu/loading',
       name: 'docu-loading',
-      component: () => import('@/pages/DocuLoading.vue'),
+      component: () => import('@/pages/Docu/DocuLoading.vue'),
     },
     {
       path: '/docu/result',
       name: 'docu-result',
-      component: () => import('@/pages/DocuResult.vue'),
+      component: () => import('@/pages/Docu/DocuResult.vue'),
     },
   ],
 })
