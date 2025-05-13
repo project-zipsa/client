@@ -1,21 +1,22 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
-const baseURL = 'http://localhost:8080'
+const baseURL = import.meta.env.VITE_API_SERVER
 
 export const useDocsStore = defineStore('storeId', {
   state: () => ({
     contents: [],
   }),
   actions: {
-    async uploadFile(payload) {
+    async uploadData(payload) {
       try {
-        const { data } = await axios.post('http://localhost:8080/', payload, {
+        const { data } = await axios.post(`${baseURL}/zipsa`, payload, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         })
-        console.log(payload)
+        this.contents = data
+        console.log('Data uploaded successfully:', data)
       } catch (err) {
         console.log(err)
       }

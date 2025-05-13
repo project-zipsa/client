@@ -13,18 +13,12 @@
         action=""
         class="flex flex-col bg-white m-20 mr-6 w-1/2 p-12 border-gray border-[1px] rounded"
       >
-        <h2 class="text-2xl pb-10">주소 입력</h2>
-        <input
-          type="text"
-          id="sample6_postcode"
-          placeholder="우편번호"
-          class="mb-4 p-2 border-black border-[1px] rounded w-2/6"
-        />
-        <p class="font-light pb-1">기본 주소</p>
+        <h2 class="text-2xl pb-20">주소 입력</h2>
+        <p class="font-light text-xl text-red-400 pb-2">지번 주소를 입력해주세요</p>
         <div class="flex pb-10">
           <input
             type="text"
-            id="sample6_address"
+            id="address"
             placeholder="검색 버튼을 눌러주세요"
             class="placeholder-gray-400 pl-2 placeholder-opacity-75 border-black border-[1px] w-4/5 rounded"
           />
@@ -36,23 +30,6 @@
             검색
           </button>
         </div>
-
-        <div class="pb-10">
-          <p class="font-light pb-1">상세 주소</p>
-          <input
-            type="text"
-            id="sample6_detailAddress"
-            placeholder="상세주소를 입력해주세요"
-            class="placeholder-gray-400 placeholder-opacity-75 border-black border-[1px] rounded p-2 w-4/5"
-          />
-        </div>
-
-        <input
-          type="text"
-          id="sample6_extraAddress"
-          placeholder="참고항목"
-          class="mb-4 p-2 border-black border-[1px] rounded w-4/5"
-        />
       </form>
 
       <div class="flex flex-col bg-white m-20 ml-6 w-1/2 p-12 border-gray border-[1px] rounded">
@@ -73,7 +50,7 @@
               </p>
               <button
                 @click="resetFile"
-                class="border border-black border-l-0 rounded-r px-4 py-2 hover:bg-gray-100 hover:bg-red-100 transition"
+                class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
               >
                 X
               </button>
@@ -93,7 +70,7 @@
     <div class="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-50">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
-        @click.prevent="addFileData"
+        @click.prevent="sendFileData"
       >
         계약 분석 결과 보러가기
         <span class="text-xl">→</span>
@@ -103,12 +80,13 @@
   </div>
 </template>
 <script setup>
+import zipsaCodes from '@/assets/zipsa-code'
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import { useDocsStore } from '@/stores/docs/getData'
 import { onMounted, ref } from 'vue'
-
+// 파일 업로드 ----
 const store = useDocsStore()
-let { uploadFile } = store
+let { uploadData } = store
 
 let file = ref(null)
 let fileName = ref('')
@@ -116,6 +94,7 @@ let isUploaded = ref(false)
 
 function setFile(event) {
   file = event.target.files[0]
+
   fileName.value = file.name
   isUploaded.value = true
 }
@@ -127,10 +106,10 @@ function resetFile(event) {
 const formData = new FormData()
 formData.append('file', file.value)
 
-const addFileData = () => {
-  uploadFile(file)
-  file = null
-}
+// ---- 파일 업로드
+
+// 주소 입력
+
 onMounted(() => {
   const script = document.createElement('script')
   script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
@@ -141,50 +120,38 @@ onMounted(() => {
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
-      // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+      var addr = ''
 
-      // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-      // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-      var addr = '' // 주소 변수
-      var extraAddr = '' // 참고항목 변수
-
-      //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') {
-        // 사용자가 도로명 주소를 선택했을 경우
-        addr = data.roadAddress
+        alert('지번 주소를 선택해주세요')
       } else {
-        // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress
       }
 
-      // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-      if (data.userSelectedType === 'R') {
-        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-          extraAddr += data.bname
-        }
-        // 건물명이 있고, 공동주택일 경우 추가한다.
-        if (data.buildingName !== '' && data.apartment === 'Y') {
-          extraAddr += extraAddr !== '' ? ', ' + data.buildingName : data.buildingName
-        }
-        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-        if (extraAddr !== '') {
-          extraAddr = ' (' + extraAddr + ')'
-        }
-        // 조합된 참고항목을 해당 필드에 넣는다.
-        document.getElementById('sample6_extraAddress').value = extraAddr
-      } else {
-        document.getElementById('sample6_extraAddress').value = ''
-      }
-
-      // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById('sample6_postcode').value = data.zonecode
-      document.getElementById('sample6_address').value = addr
-      // 커서를 상세주소 필드로 이동한다.
-      document.getElementById('sample6_detailAddress').focus()
+      document.getElementById('address').value = addr
     },
   }).open()
 }
+// -- 주소 입력
+
+function addressToCode() {
+  let addressKey = document.getElementById('address').value
+  addressKey = addressKey.split(' ').slice(0, 3).join(' ')
+  let addressCode = zipsaCodes[addressKey]
+
+  let sigunguCd = Number(addressCode.toString().slice(0, 5))
+  let bjdongCd = addressCode
+
+  return { sigunguCd, bjdongCd }
+}
+
+// post
+const sendFileData = () => {
+  let { sigunguCd, bjdongCd } = addressToCode()
+  uploadData({ sigunguCd, bjdongCd, file })
+  file = null
+}
+
+// -- post
 </script>
 <style></style>
