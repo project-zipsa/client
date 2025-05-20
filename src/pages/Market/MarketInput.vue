@@ -2,28 +2,26 @@
   <div class="bg-[#FFF9E3] min-h-screen">
     <MainHeaderComponent />
 
-    <section class="flex gap-64">
-      <div class="pl-20 pt-20">
-        <div class="flex flex-col justify-center items-center gap-2 pt-10 font-light text-xl pl-48">
+    <section class="flex pr-12 py-12 pb-4">
+      <div class="pt-12 w-full">
+        <div class="flex flex-col justify-center items-center gap-2 pt-10 font-light text-xl">
           <p class="text-4xl pb-4 font-bold">전세금, 주소, 면적, 계약 시점 입력</p>
           <p>복잡한 시세 관련 문제들, ZIPSA가 함께 분석해드립니다.</p>
-          <p class="pl-24">
-            아래의 입력란을 채워주시면, 실거래가 기반의 가격 분석을 통해 객관적인 진단 결과를
-            제공해드립니다.
-          </p>
+          <p>아래의 입력란을 채워주시면, 실거래가 기반의 가격 분석을 통해</p>
+          <p>객관적인 진단 결과를 제공해드립니다.</p>
         </div>
         <div class="relative">
           <img src="@/assets/market.png" alt="" class="object-fll" />
         </div>
       </div>
 
-      <form action="" class="bg-white w-[1020px] m-20 ml-2 p-16 flex flex-col gap-4">
+      <form action="" class="bg-white p-16 flex flex-col gap-4 w-2/3">
         <div>
           <p class="text-2xl">거래 금액 입력</p>
           <input
             type="text"
             v-model="price"
-            class="mt-3 placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
+            class="placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
             placeholder=", 없이 숫자만 입력 예) 120000"
             id="price"
           />
@@ -37,14 +35,14 @@
           <div class="flex">
             <input
               type="text"
-              class="mt-3 placeholder-gray-300 border-[black] border-[1px] rounded py-3 text-2xl w-11/12"
+              class="placeholder-gray-300 border-[black] border-[1px] rounded py-3 text-2xl w-11/12"
               id="address"
               v-model="address"
             />
             <button
               type="button"
               @click="execDaumPostcode"
-              class="border-black border-[1px] rounded mt-3 px-4 py-2 ml-8 hover:text-blue-500 hover:border-blue-500 w-1/5 text-xl"
+              class="border-black border-[1px] rounded px-4 py-2 hover:text-blue-500 hover:border-blue-500 w-1/5 text-xl"
             >
               검색
             </button>
@@ -54,7 +52,7 @@
           <p class="text-2xl">층수</p>
           <input
             type="text"
-            class="mt-3 placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
+            class="placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
             placeholder="층수를 입력(층 제외) 예) 7"
             id="floor"
             v-model="floor"
@@ -64,7 +62,7 @@
           <p class="text-2xl">전용 면적 입력</p>
           <input
             type="text"
-            class="mt-3 placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
+            class="placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
             placeholder="실수형으로 입력 예). 17.0100"
             id="area"
             v-model="area"
@@ -74,7 +72,7 @@
           <p class="text-2xl">건축년도</p>
           <input
             type="text"
-            class="mt-3 placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
+            class="placeholder-gray border-[black] border-[1px] rounded p-3 text-2xl w-full"
             placeholder="건축년도 입력(년 제외) 예) 2020"
             id="builtYear"
             v-model="builtYear"
@@ -86,7 +84,7 @@
             name=""
             id=""
             v-model="housingType"
-            class="w-full p-3 text-2xl border-[black] border-[1px] rounded mt-3"
+            class="w-full p-3 text-2xl border-[black] border-[1px] rounded"
           >
             <option value="다세대">다세대</option>
             <option value="다가구">다가구</option>
@@ -102,7 +100,7 @@
             name=""
             id=""
             v-model="contractType"
-            class="w-full p-3 text-2xl border-[black] border-[1px] rounded mt-3"
+            class="w-full p-3 text-2xl border-[black] border-[1px] rounded"
           >
             <option value="전세">전세</option>
             <option value="매매">매매</option>
@@ -110,8 +108,7 @@
         </div>
       </form>
     </section>
-
-    <div class="fixed bottom-10 right-28 flex flex-col items-end gap-2 z-50">
+    <div class="flex flex-col items-end pb-12 pr-10">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
         @click="sendInfo"

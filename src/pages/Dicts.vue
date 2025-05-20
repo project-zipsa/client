@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9E3]">
+  <div class="min-h-screen bg-[#FFF9E3] w-full">
     <div class="border-red p-4 pb-20 flex flex-col gap-8 justify-center items-center">
       <div class="flex gap-5">
         <img src="@/assets/home2.png" alt="" class="w-28 h-28 object-fill" />
