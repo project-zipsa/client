@@ -1,7 +1,289 @@
-<template lang="">
-  <div></div>
+<template>
+  <div class="container">
+    <div class="content">
+      <div class="inner-container">
+        <div class="background"></div>
+
+        <!-- Main signup card -->
+        <div class="signup-card">
+          <!-- Logo in card -->
+          <img
+            class="card-logo"
+            alt="Vector"
+            src="https://c.animaapp.com/mag6qwnvmlLbYF/img/vector.svg"
+          />
+
+          <!-- Zipsa text -->
+          <div class="card-brand-name">
+            <span class="card-part1">Zip</span>
+            <span class="card-part2">sa</span>
+          </div>
+
+          <!-- Sign up heading -->
+          <div class="signup-heading">회원가입</div>
+
+          <!-- Form fields -->
+          <div class="form-container">
+            <div v-for="field in formFields" :key="field.id" class="form-field">
+              <div class="label">
+                <span class="label-text">{{ field.label }}</span>
+                <span class="required">*</span>
+              </div>
+              <input
+                :type="field.type || 'text'"
+                class="input-field"
+                :placeholder="field.placeholder"
+                v-model="formData[field.id]"
+              />
+              <div v-if="field.errorMessage" class="error-message">
+                {{ field.errorMessage }}
+              </div>
+            </div>
+
+            <!-- Sign up button -->
+            <button class="signup-button" @click="join">가입하기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
-<script>
-export default {}
+
+<script setup lang="ts">
+import { useJoinStore } from '@/stores/users/join'
+import { reactive, ref } from 'vue'
+const joinStore = useJoinStore()
+const { userJoin } = joinStore
+
+const formData = reactive({
+  userName: '',
+  loginId: '',
+  password: '',
+  confirmPassword: '',
+})
+
+const join = async () => {
+  const result = await userJoin({
+    loginId: formData.loginId,
+    password: formData.password,
+    userName: formData.userName,
+  })
+  if (joinStore.statusCode == 201) {
+    alert('회원가입이 완료되었습니다')
+  }
+}
+
+const formFields = [
+  {
+    id: 'userName',
+    label: '이름(닉네임)',
+    required: true,
+    placeholder: '두 글자 이상 입력해주세요',
+    errorMessage: '',
+  },
+  {
+    id: 'loginId',
+    label: '아이디',
+    required: true,
+    placeholder: '5~10자의 영문 대/소문자를 사용해 주세요.',
+    errorMessage: '이메일 주소를 올바른 형식으로 입력해주세요.',
+  },
+  {
+    id: 'password',
+    label: '비밀번호',
+    required: true,
+    placeholder: '8~16자 영문 대/소문자, 숫자, 특수문자(~!%&#)를 사용해 주세요.',
+    errorMessage:
+      '비밀번호는 영문 대/소문자, 숫자, 특수문자를 모두 포함한 8~16자리로 설정해주세요.',
+    type: 'password',
+  },
+  {
+    id: 'confirmPassword',
+    label: '비밀번호 확인',
+    required: true,
+    placeholder: '비밀번호와 동일하게 입력하셔야 합니다.',
+    errorMessage: '입력하신 비밀번호와 일치하지 않습니다.',
+    type: 'password',
+  },
+]
 </script>
-<style lang=""></style>
+
+<style scoped>
+/* Basic CSS */
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.content {
+  overflow-x: hidden;
+  width: 1440px;
+  height: 1001px;
+}
+
+.inner-container {
+  position: relative;
+  height: 1024px;
+  left: -21px;
+}
+
+.background {
+  position: absolute;
+  width: 1440px;
+  height: 1024px;
+  top: 0;
+  left: 0;
+  background-color: #fff9e3;
+}
+
+.logo {
+  position: absolute;
+  width: 45px;
+  height: 44px;
+  margin-left: 96px;
+  margin-top: 28px;
+}
+
+.brand-name {
+  position: absolute;
+  top: 44px;
+  left: 153px;
+  font-family: 'Pretendard', Helvetica, sans-serif;
+  font-size: 22px;
+}
+
+.brand-part1 {
+  font-weight: bold;
+  color: #f1c40f;
+}
+
+.brand-part2 {
+  font-weight: bold;
+  color: black;
+}
+
+.login-join {
+  position: absolute;
+  top: 39px;
+  left: 1249px;
+  font-family: 'Pretendard', Helvetica;
+  font-size: 16px;
+  color: #b0b0b0;
+}
+
+.background-overlay {
+  position: absolute;
+  width: 1440px;
+  height: 924px;
+  top: 100px;
+  left: 0;
+  background-color: #fff9e3;
+}
+
+.signup-card {
+  position: absolute;
+  width: 633px;
+  height: 869px;
+  top: 100px;
+  left: 389px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.card-logo {
+  display: block;
+  width: 81px;
+  height: 73px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 54px; /* 기존 유지 */
+}
+
+.card-brand-name {
+  text-align: center;
+  margin-top: 10px;
+  font-family: 'Roboto', Helvetica;
+  font-size: 22px;
+  color: transparent;
+}
+
+.card-part1 {
+  font-weight: bold;
+  color: #f1c40f;
+}
+
+.card-part2 {
+  font-weight: bold;
+  color: black;
+}
+
+.signup-heading {
+  height: 32px;
+  text-align: center;
+  margin-top: 37px;
+  font-family: 'Pretendard-Bold', Helvetica;
+  font-weight: bold;
+  font-size: 28px;
+  color: #b0b0b0;
+}
+
+.form-container {
+  margin-top: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 433px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+.label {
+  margin-bottom: 10px;
+  font-family: 'Pretendard-Bold', Helvetica;
+  font-weight: bold;
+  font-size: 16px;
+  color: #b0b0b0;
+}
+
+.label-text {
+  color: black;
+}
+
+.required {
+  color: #4f4f4f;
+}
+
+.input-field {
+  width: 100%;
+  height: 48px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 0 12px;
+}
+
+.error-message {
+  height: 18px;
+  margin-top: 5px;
+  font-family: 'Pretendard-Bold', Helvetica;
+  font-weight: bold;
+  font-size: 12px;
+  color: #ff5252;
+}
+
+.signup-button {
+  width: 100%;
+  height: 48px;
+  margin-top: 25px;
+  background-color: #ffd43b;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Pretendard Variable', Helvetica;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+}
+</style>
