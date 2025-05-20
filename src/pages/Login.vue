@@ -30,6 +30,7 @@
                   v-model="userData.password"
                 />
               </div>
+
               <button class="login-button" @click="login">로그인</button>
             </div>
           </div>
@@ -78,13 +79,13 @@ const login = async () => {
 .wrapper {
   overflow-x: hidden;
   width: 1440px;
-  height: 1001px;
+  height: 100vh;
 }
 
 .content-box {
   position: relative;
   width: 1454px;
-  height: 1066px;
+  height: 100vh;
   left: -14px;
 }
 
@@ -167,8 +168,8 @@ const login = async () => {
 .login-box {
   position: absolute;
   width: 633px;
-  height: 815px;
-  top: 100px;
+  height: 650px;
+  top: 30px;
   left: 386px;
   background-color: white;
   border: 1px solid black;
@@ -186,7 +187,7 @@ const login = async () => {
 
 .login-logo-text {
   position: absolute;
-  top: 209px;
+  top: 179px;
   left: 317px;
   font-family: 'Pretendard', Helvetica, sans-serif;
   font-size: 32px;
@@ -210,10 +211,10 @@ const login = async () => {
 
 .login-button {
   position: absolute;
-  width: 433px;
+  width: 40%;
   height: 48px;
-  top: 590px;
-  left: 100px;
+  top: 560px;
+  left: 180px;
   background-color: #f1c40f;
   color: #333;
   border-radius: 8px;

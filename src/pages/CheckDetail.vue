@@ -3,21 +3,24 @@
     <div class="flex bg-[#FFD43B] p-4">
       <router-link
         to="/checklist/1"
-        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black]"
+        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
+        :class="{ 'border-[1.5px]': currentCheck == 1 }"
       >
         <img src="@/assets/c-before.svg" alt="" class="pr-4" />
         <button class="font-light">계약 전 체크리스트</button>
       </router-link>
       <router-link
         to="/checklist/2"
-        class="flex bg-[#FFF9E3] p-3 w-80 border-[0.5px] border-solid border-[black]"
+        class="flex bg-[#FFF9E3] p-3 w-80 border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
+        :class="{ 'border-[1.5px]': currentCheck == 2 }"
       >
         <img src="@/assets/c-ing.svg" alt="" class="pr-4" />
         <button class="font-light">계약 진행 중 체크리스트</button>
       </router-link>
       <router-link
         to="/checklist/3"
-        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[0_30px_30px_0] border-[0.5px] border-solid border-[black]"
+        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[0_30px_30px_0] border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
+        :class="{ 'border-[1.5px]': currentCheck == 3 }"
       >
         <img src="@/assets/c-after.svg" alt="" class="pr-4" />
         <button class="font-light">계약 후 체크리스트</button>
@@ -53,14 +56,15 @@
               :id="index"
               @change.prevent="toggleCheck(index, $event)"
               :checked="checkStatesById[currentRoute.params.id]?.[index]"
+              class=""
             />
-            <label class="inline text-base pt-1" :for="index">
+            <label class="inline text-base pt-[1px]" :for="index">
               {{ item.description }}
             </label>
-            <span class="relative group cursor-pointer">
+            <span class="relative group cursor-pointer pt-[3px]">
               <img src="@/assets/info.svg" alt="" class="w-5 h-5" />
               <div
-                class="absolute top-1/2 left-full ml-3 w-[700px] p-3 bg-[#FFF9E3] rounded-lg shadow-md text-xl hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
+                class="absolute top-1/2 left-full ml-3 w-[700px] p-3 pl-7 bg-[#FFF9E3] rounded-lg shadow-md text-xl hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
               >
                 <h2 class="font-bold">어떻게 확인하나요?</h2>
                 <div class="pb-4">{{ item.info.how }}</div>
@@ -83,6 +87,7 @@ export default {
   name: 'detail',
   setup() {
     const currentRoute = useRoute()
+    let currentCheck = ref(currentRoute.params.id)
 
     const checkInfo = computed(() => {
       return checklists[currentRoute.params.id]
@@ -103,6 +108,7 @@ export default {
     watch(
       () => currentRoute.params.id,
       (newId) => {
+        currentCheck.value = newId
         if (!checkStatesById.value[newId]) {
           checkStatesById.value[newId] = Array(checklists[newId].length).fill(false)
           progressBar.value[newId] = 0
@@ -119,6 +125,7 @@ export default {
       toggleCheck,
       progressBar,
       currentRoute,
+      currentCheck,
     }
   },
 }

@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-[#FFF9E3] px-16 py-16 space-y-20">
-    <main class="grid grid-cols-1 md:grid-cols-2 gap-16">
+  <div class="bg-[#FFF9E3] px-16 py-16">
+    <main class="grid grid-cols-[60%_35%] grid-rows-[40%_40%] gap-12">
       <div
-        class="flex items-center justify-between px-6 py-10 bg-[#ffffff] rounded-xl shadow-md bg-opacity-60"
+        class="flex items-center justify-between px-6 bg-[#ffffff] rounded-xl shadow-md bg-opacity-60"
       >
         <div class="text-left">
           <div class="flex items-center gap-2 mb-4">

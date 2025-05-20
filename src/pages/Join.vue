@@ -7,17 +7,6 @@
         <!-- Main signup card -->
         <div class="signup-card">
           <!-- Logo in card -->
-          <img
-            class="card-logo"
-            alt="Vector"
-            src="https://c.animaapp.com/mag6qwnvmlLbYF/img/vector.svg"
-          />
-
-          <!-- Zipsa text -->
-          <div class="card-brand-name">
-            <span class="card-part1">Zip</span>
-            <span class="card-part2">sa</span>
-          </div>
 
           <!-- Sign up heading -->
           <div class="signup-heading">회원가입</div>
@@ -86,7 +75,7 @@ const formFields = [
     label: '아이디',
     required: true,
     placeholder: '5~10자의 영문 대/소문자를 사용해 주세요.',
-    errorMessage: '이메일 주소를 올바른 형식으로 입력해주세요.',
+    errorMessage: '',
   },
   {
     id: 'password',
@@ -102,7 +91,7 @@ const formFields = [
     label: '비밀번호 확인',
     required: true,
     placeholder: '비밀번호와 동일하게 입력하셔야 합니다.',
-    errorMessage: '입력하신 비밀번호와 일치하지 않습니다.',
+    errorMessage: '', //입력하신 비밀번호와 일치하지 않습니다.
     type: 'password',
   },
 ]
@@ -184,21 +173,12 @@ const formFields = [
 .signup-card {
   position: absolute;
   width: 633px;
-  height: 869px;
-  top: 100px;
+  height: 670px;
+  top: 20px;
   left: 389px;
   background-color: white;
   border: 1px solid black;
   border-radius: 8px;
-}
-
-.card-logo {
-  display: block;
-  width: 81px;
-  height: 73px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 54px; /* 기존 유지 */
 }
 
 .card-brand-name {
@@ -222,7 +202,8 @@ const formFields = [
 .signup-heading {
   height: 32px;
   text-align: center;
-  margin-top: 37px;
+  margin-top: 36px;
+
   font-family: 'Pretendard-Bold', Helvetica;
   font-weight: bold;
   font-size: 28px;
@@ -230,7 +211,7 @@ const formFields = [
 }
 
 .form-container {
-  margin-top: 25px;
+  margin-top: 35px;
   margin-left: auto;
   margin-right: auto;
   width: 433px;

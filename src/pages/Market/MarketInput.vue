@@ -3,19 +3,19 @@
     <MainHeaderComponent />
 
     <section class="flex pr-12 pt-6">
-      <div class="pt-2 w-full">
+      <div class="pt-2 w-full relative">
         <div class="flex flex-col justify-center items-center pt-4 font-light text-xl">
           <p class="text-4xl pb-4 font-bold">전세금, 주소, 면적, 계약 시점 입력</p>
           <p class="pb-1">복잡한 시세 관련 문제들, ZIPSA가 함께 분석해드립니다.</p>
           <p>아래의 입력란을 채워주시면, 실거래가 기반의 가격 분석을 통해</p>
           <p>객관적인 진단 결과를 제공해드립니다.</p>
         </div>
-        <div class="relative">
-          <img src="@/assets/market.png" alt="" class="object-fll" />
+        <div class="">
+          <img src="@/assets/market.png" alt="" class="h-[500px] pl-10 absolute top-24" />
         </div>
       </div>
 
-      <form action="" class="bg-white py-6 px-6 pb-0 mb-4 flex flex-col gap-3 w-2/3">
+      <form action="" class="bg-white py-6 px-6 pb-4 mb-4 flex flex-col gap-3 w-2/3">
         <div>
           <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
           <input
@@ -48,16 +48,29 @@
             </button>
           </div>
         </div>
-        <div>
-          <p class="text-xl pb-2">층수</p>
-          <input
-            type="text"
-            class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-            placeholder="층수를 입력(층 제외) 예) 7"
-            id="floor"
-            v-model="floor"
-          />
+        <div class="flex gap-4">
+          <div>
+            <p class="text-xl pb-2">층수</p>
+            <input
+              type="text"
+              class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
+              placeholder="층수를 입력(층 제외) 예) 7"
+              id="floor"
+              v-model="floor"
+            />
+          </div>
+          <div>
+            <p class="text-xl pb-2">건축년도</p>
+            <input
+              type="text"
+              class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
+              placeholder="건축년도 입력(년 제외) 예) 2020"
+              id="builtYear"
+              v-model="builtYear"
+            />
+          </div>
         </div>
+
         <div>
           <p class="text-xl pb-2">전용 면적 입력</p>
           <input
@@ -68,43 +81,36 @@
             v-model="area"
           />
         </div>
-        <div>
-          <p class="text-xl pb-2">건축년도</p>
-          <input
-            type="text"
-            class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-            placeholder="건축년도 입력(년 제외) 예) 2020"
-            id="builtYear"
-            v-model="builtYear"
-          />
-        </div>
-        <div>
-          <p class="text-xl pb-2">주택유형</p>
-          <select
-            name=""
-            id=""
-            v-model="housingType"
-            class="w-full p-2 text-xl border-[black] border-[1px] rounded"
-          >
-            <option value="다세대">다세대</option>
-            <option value="다가구">다가구</option>
-            <option value="단독">단독</option>
-            <option value="아파트">아파트</option>
-            <option value="연립다세대">연립다세대</option>
-            <option value="오피스텔">오피스텔</option>
-          </select>
-        </div>
-        <div>
-          <p class="text-xl pb-2">계약유형</p>
-          <select
-            name=""
-            id=""
-            v-model="contractType"
-            class="w-full p-2 text-xl border-[black] border-[1px] rounded"
-          >
-            <option value="전세">전세</option>
-            <option value="매매">매매</option>
-          </select>
+
+        <div class="flex gap-4">
+          <div>
+            <p class="text-xl pb-2">주택유형</p>
+            <select
+              name=""
+              id=""
+              v-model="housingType"
+              class="w-full p-2 px-16 text-xl border-[black] border-[1px] rounded"
+            >
+              <option value="다세대">다세대</option>
+              <option value="다가구">다가구</option>
+              <option value="단독">단독</option>
+              <option value="아파트">아파트</option>
+              <option value="연립다세대">연립다세대</option>
+              <option value="오피스텔">오피스텔</option>
+            </select>
+          </div>
+          <div>
+            <p class="text-xl pb-2">계약유형</p>
+            <select
+              name=""
+              id=""
+              v-model="contractType"
+              class="w-full p-2 px-24 text-xl border-[black] border-[1px] rounded"
+            >
+              <option value="전세">전세</option>
+              <option value="매매">매매</option>
+            </select>
+          </div>
         </div>
       </form>
     </section>

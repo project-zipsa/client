@@ -31,10 +31,15 @@
           {{ item.word }}
         </div>
         <div class="flex flex-col w-full">
-          <div class="w-full text-center p-3">{{ item.meaning }}</div>
-          <div class="hidden p-3 group-hover:flex bg-[#FFFFF5] rounded-[0px_15px_15px_0px]">
+          <div class="w-full text-center p-3 cursor-pointer" @click="toggle(currentPage, index)">
+            {{ item.meaning }}
+          </div>
+          <div
+            v-if="openStates[currentPage]?.[index]"
+            class="relative p-3 bg-[#FFFFF5] rounded-[0px_15px_15px_0px]"
+          >
             <img src="@/assets/home1.png" alt="" class="w-16 h-18" />
-            <div class="text-center pt-6 pl-6">
+            <div class="text-center pl-6 absolute top-10 w-full">
               {{ item.detail }}
             </div>
           </div>
@@ -80,11 +85,26 @@
 </template>
 <script>
 import wordDicts from '@/assets/dicts'
+import { reactive } from 'vue'
 import { computed, ref } from 'vue'
 export default {
   name: 'wordDictionary',
   setup() {
     const words = wordDicts
+
+    const openStates = reactive({})
+
+    function toggle(currentPage, index) {
+      if (!openStates[currentPage]) {
+        openStates[currentPage] = []
+      }
+      if (typeof openStates[currentPage][index] === 'undefined') {
+        openStates[currentPage][index] = false
+      }
+
+      openStates[currentPage][index] = !openStates[currentPage][index]
+    }
+
     let search = ref('')
     let filteredWords = computed(() => {
       const keyword = search.value.trim()
@@ -126,6 +146,8 @@ export default {
       currentPage,
       totalPages,
       visiblePages,
+      openStates,
+      toggle,
     }
   },
 }

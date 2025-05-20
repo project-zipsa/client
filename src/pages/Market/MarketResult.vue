@@ -1,17 +1,17 @@
 <template>
   <div class="bg-[#FFF9E3]">
     <MainHeaderComponent />
-    <h1 class="text-4xl font-bold p-12">내 전세가율, 평균 시세 비교 결과</h1>
+    <h1 class="text-4xl font-bold px-12 pt-8 pb-0">내 전세가율, 평균 시세 비교 결과</h1>
 
     <div class="p-10">
-      <section class="flex bg-white pb-16 pt-10">
-        <div class="w-1/2 flex flex-col gap-10 pl-20 pb-16 border-r-2 border-[#848484]">
+      <section class="flex bg-white pb-10 pt-10">
+        <div class="w-1/2 flex flex-col gap-10 pl-20 pb-4 border-r-2 border-[#848484]">
           <div class="flex">
-            <p class="font-bold text-2xl pt-24">나의 전세가율은</p>
-            <img src="@/assets/blue_house.svg" alt="" class="pl-40 pt-10" />
+            <p class="font-bold text-2xl pt-10">나의 전세가율은</p>
+            <img src="@/assets/blue_house.svg" alt="" class="pl-40" />
           </div>
 
-          <div class="mt-10">
+          <div class="">
             <p class="text-xl text-gray-400 pb-2 pl-96">(단위: %)</p>
             <div
               class="w-[460px] h-[45px] border-black border-[1px] rounded bg-gradient-to-r from-red-100 to-red-500 relative"
@@ -41,21 +41,21 @@
           </span>
         </div>
 
-        <div class="w-1/2 flex flex-col gap-10 items-center justify-center">
+        <div class="w-1/2 flex flex-col gap-4 items-center justify-center">
           <div class="flex">
             <p class="text-2xl font-bold px-14 pt-6">나의 거래금액 비교 결과는</p>
             <img src="@/assets/chart.svg" alt="" class="pl-20 pb-10" />
           </div>
 
-          <div class="text-xl flex flex-col justify-center items-center gap-2">
+          <div class="text-xl flex flex-col justify-center items-center gap-1">
             <span class="flex gap-2">
               <img :src="diffResult.icon" alt="" class="" />
               <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
             </span>
 
-            <p class="pb-3">동일 건물 평균 시세: {{ averagePrice }}원</p>
-            <p class="pb-3">입력하신 거래 금액: {{ userPrice }}원</p>
-            <p>차이: {{ differentPercent }} %</p>
+            <p class="pb-3">동일 건물 평균 시세: {{ averagePrice }}만 원</p>
+            <p class="pb-3">입력하신 거래 금액: {{ userPrice }}만 원</p>
+            <p>차이: {{ Math.ceil(differentPercent) }} %</p>
           </div>
 
           <div class="text-xl font-bold">
