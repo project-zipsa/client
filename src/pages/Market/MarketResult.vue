@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#FFF9E3]">
+  <div class="bg-[#FFF9E3] w-full max-w-[1500px] mx-auto">
     <MainHeaderComponent />
     <h1 class="text-4xl font-bold px-12 pt-8 pb-0">내 전세가율, 평균 시세 비교 결과</h1>
 
@@ -58,12 +58,12 @@
             <p>차이: {{ Math.ceil(differentPercent) }} %</p>
           </div>
 
-          <div class="text-xl font-bold">
+          <div class="text-xl font-bold pl-12">
             <span class="flex gap-2">
               <img :src="diffResult.arrow" alt="" />
               <p>{{ diffResult.description }}</p>
             </span>
-            <p>{{ diffResult.detail }}</p>
+            <p class="w-[80%]">{{ diffResult.detail }}</p>
           </div>
         </div>
       </section>

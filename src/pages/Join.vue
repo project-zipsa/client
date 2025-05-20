@@ -100,26 +100,25 @@ const formFields = [
 <style scoped>
 /* Basic CSS */
 .container {
-  display: flex;
-  justify-content: center;
   width: 100%;
+  background-color: transparent;
 }
 
 .content {
   overflow-x: hidden;
-  width: 1440px;
+  width: 100%;
   height: 1001px;
 }
 
 .inner-container {
   position: relative;
   height: 1024px;
-  left: -21px;
+  width: 100%;
 }
 
 .background {
   position: absolute;
-  width: 1440px;
+  width: 100%;
   height: 1024px;
   top: 0;
   left: 0;
@@ -163,7 +162,7 @@ const formFields = [
 
 .background-overlay {
   position: absolute;
-  width: 1440px;
+  width: 100%;
   height: 924px;
   top: 100px;
   left: 0;

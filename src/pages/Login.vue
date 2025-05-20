@@ -78,20 +78,20 @@ const login = async () => {
 
 .wrapper {
   overflow-x: hidden;
-  width: 1440px;
+  width: 100%;
   height: 100vh;
 }
 
 .content-box {
   position: relative;
-  width: 1454px;
+  width: 100%;
   height: 100vh;
   left: -14px;
 }
 
 .background-layer {
   position: absolute;
-  width: 1440px;
+  width: 100%;
   height: 1001px;
   top: 0;
   left: 14px;
@@ -100,7 +100,7 @@ const login = async () => {
 
 .image-layer {
   position: absolute;
-  width: 1440px;
+  width: 100%;
   height: 1024px;
   top: -11px;
   left: 0;
@@ -109,7 +109,7 @@ const login = async () => {
 
 .main-rectangle {
   position: absolute;
-  width: 1440px;
+  width: 100%;
   height: 897px;
   top: 115px;
   left: 0;
