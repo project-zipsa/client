@@ -11,7 +11,7 @@ export const useMarketStore = defineStore('marketStore', {
     async uploadMarket(payload) {
       try {
         const { data } = await axios.post(
-          `${baseURL}/zipsa/market-price/get-market-price-info`,
+          `${baseURL}zipsa/market-price/get-market-price-info`,
           payload,
         )
         console.log('uploadMarket data', data)
