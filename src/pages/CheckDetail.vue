@@ -33,37 +33,43 @@
 
         <div class="h-4 w-[95%] bg-[#E5E7EB33] rounded-[20px]">
           <div
-            class="h-4 bg-[#2563EB] rounded-[20px]"
+            class="h-4 bg-[#2563EB] rounded-[20px] transition-all duration-500 ease-in-out"
             :style="{ width: progressBar[currentRoute.params.id] + '%' }"
           ></div>
         </div>
       </div>
 
-      <section class="m-8 bg-white">
-        <div v-for="(item, index) in checkInfo" :key="index" class="flex p-10 font-light gap-2">
-          <input
-            type="checkbox"
-            :id="index"
-            @change.prevent="toggleCheck(index, $event)"
-            :checked="checkStatesById[currentRoute.params.id]?.[index]"
-          />
-          <label class="inline" :for="index">
-            {{ item.description }}
-          </label>
-          <span class="relative group cursor-pointer">
-            <img src="@/assets/info.svg" alt="" />
-            <div
-              class="absolute top-1/2 left-full ml-3 w-96 p-3 bg-[#FFF9E3] rounded-lg shadow-md text-sm hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
-            >
-              <h2 class="font-bold">어떻게 확인하나요?</h2>
-              <div>{{ item.info.how }}</div>
+      <div class="p-5">
+        <section class="bg-white px-4">
+          <div
+            v-for="(item, index) in checkInfo"
+            :key="index"
+            class="flex p-8 font-light gap-2 border-b-gray-200 border-b-2"
+          >
+            <input
+              type="checkbox"
+              :id="index"
+              @change.prevent="toggleCheck(index, $event)"
+              :checked="checkStatesById[currentRoute.params.id]?.[index]"
+            />
+            <label class="inline text-base pt-1" :for="index">
+              {{ item.description }}
+            </label>
+            <span class="relative group cursor-pointer">
+              <img src="@/assets/info.svg" alt="" class="w-5 h-5" />
+              <div
+                class="absolute top-1/2 left-full ml-3 w-[700px] p-3 bg-[#FFF9E3] rounded-lg shadow-md text-xl hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
+              >
+                <h2 class="font-bold">어떻게 확인하나요?</h2>
+                <div class="pb-4">{{ item.info.how }}</div>
 
-              <h2 class="font-bold">예방 가능한 사기유형</h2>
-              <div v-for="(item, index) in item.info.prevent" :key="index">- {{ item }}</div>
-            </div>
-          </span>
-        </div>
-      </section>
+                <h2 class="font-bold">예방 가능한 사기유형</h2>
+                <div v-for="(item, index) in item.info.prevent" :key="index">- {{ item }}</div>
+              </div>
+            </span>
+          </div>
+        </section>
+      </div>
     </form>
   </div>
 </template>

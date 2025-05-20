@@ -6,7 +6,7 @@
         계약 전, 진행 중, 후 체크리스트를 통해 안전하게 계약을 진행하세요.
       </p>
 
-      <div class="flex flex-wrap justify-center pb-12">
+      <div class="flex flex-wrap justify-center pb-20">
         <div class="p-3">
           <section
             class="w-[400px] h-[320px] pb-6 flex flex-col justify-center items-center rounded-xl bg-white border-t-4 border-[#91D8EA] hover:-translate-y-1 transition shadow-[0px_4px_6px_0px_rgba(0,0,0,0.10),0px_10px_15px_0px_rgba(0,0,0,0.10)]"
@@ -15,7 +15,7 @@
               <img src="@/assets/c-before.svg" alt="" class="w-8 h-8 object-contain"
             /></span>
 
-            <h2 class="font-light text-xl pb-5">계약 전 체크리스트</h2>
+            <h2 class="font-light text-xl pb-5 pt-3">계약 전 체크리스트</h2>
             <p class="font-light text-gray-700 px-8 pb-8">
               계약 전, 중요한 법적 사항과 집주인 정보 등을 확인해보세요.
             </p>
@@ -33,7 +33,7 @@
             <span class="w-18 h-18 p-5 flex rounded-full bg-[#51ACF64D]"
               ><img src="@/assets/c-ing.svg" alt="" class="w-8 h-8 object-contain"
             /></span>
-            <h2 class="font-light text-xl pb-5">계약 진행 중 체크리스트</h2>
+            <h2 class="font-light text-xl pb-5 pt-3">계약 진행 중 체크리스트</h2>
             <p class="font-light text-gray-700 px-8 pb-8">
               계약서 서명전, 주의 깊게 체크해야 할 사항들입니다.
             </p>
@@ -51,7 +51,7 @@
             <span class="w-18 h-18 p-5 flex rounded-full bg-[#DBEAFE]"
               ><img src="@/assets/c-after.svg" alt="" class="w-8 h-8 object-contain"
             /></span>
-            <h2 class="font-light text-xl pb-5">계약 후 체크리스트</h2>
+            <h2 class="font-light text-xl pb-5 pt-3">계약 후 체크리스트</h2>
             <p class="font-light text-gray-700 px-8 pb-8">
               계약 후, 중요한 사후 관리 사항을 점검하세요.
             </p>
@@ -68,11 +68,11 @@
         <h3 class="text-lg pb-8">추가 도움이 필요하신가요?</h3>
         <div class="flex justify-center">
           <div class="flex">
-            <img src="@/assets/c-help.svg" alt="" class="w-6 h-6 object-contain" />
-            <span class="text-blue-500 font-light cursor-pointer"> 계약서 관련 도움말</span>
+            <img src="@/assets/c-help.svg" alt="" class="w-6 h-6 object-contain pr-2" />
+            <span class="text-blue-500 font-light cursor-pointer pr-5"> 계약서 관련 도움말</span>
           </div>
           <div class="flex">
-            <img src="@/assets/c-help-2.svg" alt="" class="w-6 h-6 object-contain" />
+            <img src="@/assets/c-help-2.svg" alt="" class="w-6 h-6 object-contain pr-2" />
             <span class="text-blue-500 font-light cursor-pointer">고객센터 문의 </span>
           </div>
         </div>

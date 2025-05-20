@@ -1,68 +1,73 @@
 <template>
-  <div class="bg-[#FFF9E3]">
+  <div class="bg-[#FFF9E3] min-h-screen">
     <MainHeaderComponent />
     <h1 class="text-4xl font-bold p-12">내 전세가율, 평균 시세 비교 결과</h1>
 
-    <section class="flex gap-10 bg-white m-10 mx-24 pb-16">
-      <div class="w-1/2 flex flex-col gap-10 pl-24 pb-16 mt-10 border-r-2 border-[#848484]">
-        <div class="flex">
-          <p class="font-bold text-2xl p-12 pt-24">나의 전세가율은</p>
-          <img src="@/assets/blue_house.svg" alt="" class="pl-48" />
+    <div class="p-10">
+      <section class="flex bg-white pb-16 pt-10">
+        <div class="w-1/2 flex flex-col gap-10 pl-20 pb-16 border-r-2 border-[#848484]">
+          <div class="flex">
+            <p class="font-bold text-2xl pt-24">나의 전세가율은</p>
+            <img src="@/assets/blue_house.svg" alt="" class="pl-40 pt-10" />
+          </div>
+
+          <div class="mt-10">
+            <p class="text-xl text-gray-400 pb-2 pl-96">(단위: %)</p>
+            <div
+              class="w-[460px] h-[45px] border-black border-[1px] rounded bg-gradient-to-r from-red-100 to-red-500 relative"
+            >
+              <img
+                :src="jeonseResult.face"
+                alt=""
+                class="absolute -top-1"
+                :style="{ left: percentValue + '%' }"
+              />
+              <p
+                class="font-bold text-xl absolute top-10 pl-2"
+                :style="{ left: percentValue + '%' }"
+              >
+                {{ jeonseRatio }}
+              </p>
+            </div>
+          </div>
+
+          <span class="flex gap-2 pl-2">
+            <img :src="jeonseResult.arrow" alt="" />
+            <p class="text-xl font-bold pl-1">{{ jeonseResult.title }}</p>
+          </span>
+          <span class="flex gap-3">
+            <img :src="jeonseResult.icon" alt="" />
+            <p class="text-xl font-bold pt-1">{{ jeonseResult.description }}</p>
+          </span>
         </div>
 
-        <div class="mt-10">
-          <p class="text-xl text-gray-400 pb-2 pl-96">(단위: %)</p>
-          <div
-            class="w-[460px] h-[45px] border-black border-[1px] rounded bg-gradient-to-r from-red-100 to-red-500 relative"
-          >
-            <img
-              :src="jeonseResult.face"
-              alt=""
-              class="absolute -top-1"
-              :style="{ left: percentValue + '%' }"
-            />
-            <p class="font-bold text-xl absolute top-10 pl-2" :style="{ left: percentValue + '%' }">
-              {{ jeonseRatio }}
-            </p>
+        <div class="w-1/2 flex flex-col gap-10 items-center justify-center">
+          <div class="flex">
+            <p class="text-2xl font-bold px-14 pt-6">나의 거래금액 비교 결과는</p>
+            <img src="@/assets/chart.svg" alt="" class="pl-20 pb-10" />
+          </div>
+
+          <div class="text-xl flex flex-col justify-center items-center gap-2">
+            <span class="flex gap-2">
+              <img :src="diffResult.icon" alt="" class="" />
+              <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
+            </span>
+
+            <p class="pb-3">동일 건물 평균 시세: {{ averagePrice }}원</p>
+            <p class="pb-3">입력하신 거래 금액: {{ userPrice }}원</p>
+            <p>차이: {{ differentPercent }} %</p>
+          </div>
+
+          <div class="text-xl font-bold">
+            <span class="flex gap-2">
+              <img :src="diffResult.arrow" alt="" />
+              <p>{{ diffResult.description }}</p>
+            </span>
+            <p>{{ diffResult.detail }}</p>
           </div>
         </div>
-
-        <span class="flex gap-2 pl-2">
-          <img :src="jeonseResult.arrow" alt="" />
-          <p class="text-xl font-bold pl-1">{{ jeonseResult.title }}</p>
-        </span>
-        <span class="flex gap-3">
-          <img :src="jeonseResult.icon" alt="" />
-          <p class="text-xl font-bold pt-1">{{ jeonseResult.description }}</p>
-        </span>
-      </div>
-
-      <div class="w-1/2 flex flex-col gap-10 items-center justify-center">
-        <div class="flex mt-20">
-          <p class="text-2xl font-bold px-12 pt-10">나의 거래금액 비교 결과는</p>
-          <img src="@/assets/chart.svg" alt="" class="pl-48" />
-        </div>
-
-        <div class="text-xl mt-5 flex flex-col justify-center items-center gap-2">
-          <span class="flex gap-2">
-            <img :src="diffResult.icon" alt="" class="mb-5" />
-            <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
-          </span>
-
-          <p class="pb-3">동일 건물 평균 시세: {{ averagePrice }}원</p>
-          <p class="pb-3">입력하신 거래 금액: {{ userPrice }}원</p>
-          <p>차이: {{ differentPercent }} %</p>
-        </div>
-
-        <div class="text-xl font-bold m-10 mb-0">
-          <span class="flex gap-2">
-            <img :src="diffResult.arrow" alt="" />
-            <p>{{ diffResult.description }}</p>
-          </span>
-          <p>{{ diffResult.detail }}</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 <script setup>
