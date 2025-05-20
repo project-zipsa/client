@@ -45,7 +45,7 @@
 
         <div class="text-xl mt-5 flex flex-col justify-center items-center gap-2">
           <span class="flex gap-2">
-            <img :src="jeonseResult.icon" alt="" class="mb-5" />
+            <img :src="diffResult.icon" alt="" class="mb-5" />
             <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
           </span>
 

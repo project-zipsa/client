@@ -13,9 +13,7 @@
           </p>
         </div>
         <div class="relative">
-          <img src="@/assets/yellow_house.svg" alt="" class="object-fll" />
-          <img src="@/assets/calculator.svg" alt="" class="absolute top-[310px] left-[380px]" />
-          <img src="@/assets/percent.png" alt="" class="absolute top-[250px] left-[600px]" />
+          <img src="@/assets/market.png" alt="" class="object-fll" />
         </div>
       </div>
 

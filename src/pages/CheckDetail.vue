@@ -47,9 +47,9 @@
             @change.prevent="toggleCheck(index, $event)"
             :checked="checkStatesById[currentRoute.params.id]?.[index]"
           />
-          <div class="inline">
+          <label class="inline" :for="index">
             {{ item.description }}
-          </div>
+          </label>
           <span class="relative group cursor-pointer">
             <img src="@/assets/info.svg" alt="" />
             <div
