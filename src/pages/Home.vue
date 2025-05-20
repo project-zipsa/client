@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9E3] px-16 py-16 space-y-20">
+  <div class="bg-[#FFF9E3] px-16 py-16 space-y-20 min-h-screen">
     <main class="grid grid-cols-1 md:grid-cols-2 gap-16">
       <div
         class="flex items-center justify-between px-6 py-10 bg-[#ffffff] rounded-xl shadow-md bg-opacity-60"

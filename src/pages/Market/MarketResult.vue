@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#FFF9E3] min-h-screen">
+  <div class="bg-[#FFF9E3]">
     <MainHeaderComponent />
     <h1 class="text-4xl font-bold p-12">내 전세가율, 평균 시세 비교 결과</h1>
 
