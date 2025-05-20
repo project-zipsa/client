@@ -37,7 +37,7 @@
             <button class="text-500 font-semibold hover:underline pb-2">바로가기↗</button>
           </router-link>
           <p class="text-gray-700 text-xl pb-2">시세 정보? 여기에 다 있으니까!</p>
-          <router-link to="/">
+          <router-link to="/market/upload">
             <button class="text-500 font-semibold hover:underline">바로가기↗</button>
           </router-link>
         </div>
