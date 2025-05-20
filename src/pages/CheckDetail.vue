@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-screen bg-[#FFF9E3]">
-    <div class="flex bg-[#FFD43B] p-5">
+    <div class="flex bg-[#FFD43B] p-4">
       <router-link
         to="/checklist/1"
-        class="flex bg-[#FFF9E3] p-5 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black]"
+        class="flex bg-[#FFF9E3] p-3 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black]"
       >
         <img src="@/assets/c-before.svg" alt="" class="pr-4" />
         <button class="font-light">계약 전 체크리스트</button>
@@ -24,18 +24,20 @@
       </router-link>
     </div>
 
-    <form action="">
-      <div class="bg-white m-8 p-5">
+    <form action="" class="p-16 pt-6">
+      <div class="p-3">
         <div class="flex justify-between">
-          <h2 class="font-light p-3 pb-5 text-2xl">전체 진행률</h2>
-          <p class="font-light text-3xl">{{ progressBar[currentRoute.params.id] }}%</p>
+          <h2 class="p-2 pb-3 pl-12 text-3xl">전체 진행률</h2>
+          <p class="font-light text-3xl pr-116">{{ progressBar[currentRoute.params.id] }}%</p>
         </div>
 
-        <div class="h-4 w-[95%] bg-[#E5E7EB33] rounded-[20px]">
-          <div
-            class="h-4 bg-[#2563EB] rounded-[20px] transition-all duration-500 ease-in-out"
-            :style="{ width: progressBar[currentRoute.params.id] + '%' }"
-          ></div>
+        <div class="pl-8">
+          <div class="h-4 w-[95%] bg-[#E5E7EB33] rounded-[20px] p-1">
+            <div
+              class="h-4 bg-[#2563EB] rounded-[20px] transition-all duration-500 ease-in-out"
+              :style="{ width: progressBar[currentRoute.params.id] + '%' }"
+            ></div>
+          </div>
         </div>
       </div>
 

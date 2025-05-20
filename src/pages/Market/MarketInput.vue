@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-[#FFF9E3] min-h-screen">
+  <div class="bg-[#FFF9E3]">
     <MainHeaderComponent />
 
     <section class="flex pr-12 pt-6">
       <div class="pt-2 w-full">
-        <div class="flex flex-col justify-center items-center gap-2 pt-4 font-light text-xl">
+        <div class="flex flex-col justify-center items-center pt-4 font-light text-xl">
           <p class="text-4xl pb-4 font-bold">전세금, 주소, 면적, 계약 시점 입력</p>
-          <p>복잡한 시세 관련 문제들, ZIPSA가 함께 분석해드립니다.</p>
+          <p class="pb-1">복잡한 시세 관련 문제들, ZIPSA가 함께 분석해드립니다.</p>
           <p>아래의 입력란을 채워주시면, 실거래가 기반의 가격 분석을 통해</p>
           <p>객관적인 진단 결과를 제공해드립니다.</p>
         </div>
@@ -15,14 +15,14 @@
         </div>
       </div>
 
-      <form action="" class="bg-white py-10 px-6 pb-0 mb-4 flex flex-col gap-3 w-2/3">
+      <form action="" class="bg-white py-6 px-6 pb-0 mb-4 flex flex-col gap-3 w-2/3">
         <div>
-          <p class="text-xl pb-2">거래 금액 입력</p>
+          <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
           <input
             type="text"
             v-model="price"
             class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-            placeholder=", 없이 숫자만 입력 예) 120000"
+            placeholder="숫자만 입력 예) 120000"
             id="price"
           />
         </div>

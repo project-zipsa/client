@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#FFF9E3] min-h-screen w-full">
+  <div class="bg-[#FFF9E3] w-full">
     <MainHeaderComponent />
 
     <div class="flex flex-col justify-between items-center pt-48">

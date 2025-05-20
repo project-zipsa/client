@@ -1,9 +1,9 @@
 <template>
-  <div class="max-h-screen bg-[#FFF9E3] w-full">
-    <div class="border-red p-4 pb-20 flex flex-col gap-8 justify-center items-center">
-      <div class="flex gap-5">
+  <div class="bg-[#FFF9E3] w-full">
+    <div class="border-red p-4 pb-12 flex flex-col gap-8 justify-center items-center">
+      <div class="flex">
         <img src="@/assets/home2.png" alt="" class="w-28 h-28 object-fill" />
-        <h1 class="font-bold text-3xl pt-14">법률 용어 단어 리스트</h1>
+        <h1 class="font-bold text-3xl pt-14 pl-6">법률 용어 단어 리스트</h1>
       </div>
 
       <form action="" class="relative pl-6">
@@ -21,7 +21,7 @@
       </form>
     </div>
 
-    <section class="flex flex-col gap-8 justify-content items-center">
+    <section class="flex flex-col gap-3 justify-content items-center">
       <div
         v-for="(item, index) in showPages"
         :key="index"
@@ -55,7 +55,7 @@
           <
         </button>
         <button
-          v-for="(item, index) in Array.from({ length: totalPages }, (_, i) => i + 1)"
+          v-for="(item, index) in visiblePages"
           :key="index"
           @click="currentPage = item"
           class="p-1 bg-[white] border border-solid border-[#DFE3E8] h-8 w-8 rounded"
@@ -98,10 +98,20 @@ export default {
     })
 
     let currentPage = ref(1)
-    const perPage = 7
+    const perPage = 6
+    const maxVisible = 4
+
     const totalPages = computed(() => {
       return Math.ceil(wordDicts.length / perPage)
     })
+
+    const visiblePages = computed(() => {
+      const start = Math.max(currentPage.value - 1, 0)
+      const end = Math.min(start + maxVisible, totalPages.value)
+
+      return Array.from({ length: end - start }, (_, i) => start + i + 1)
+    })
+
     const showPages = computed(() => {
       const start = (currentPage.value - 1) * perPage
       const end = start + perPage
@@ -115,6 +125,7 @@ export default {
       showPages,
       currentPage,
       totalPages,
+      visiblePages,
     }
   },
 }
