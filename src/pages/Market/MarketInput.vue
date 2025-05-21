@@ -134,13 +134,13 @@ import { onMounted, ref, watch } from 'vue'
 const marketStore = useMarketStore()
 let { uploadMarket } = marketStore
 
-// let price = ref()
-// let address = ref()
-// let area = ref()
-// let floor = ref()
-// let builtYear = ref()
-// let contractType = ref()
-// let housingType = ref()
+let price = ref()
+let address = ref()
+let area = ref()
+let floor = ref()
+let builtYear = ref()
+let contractType = ref()
+let housingType = ref()
 
 const sendInfo = async () => {
   const tokens = address.value.split(' ')
