@@ -87,17 +87,11 @@ import cautionIcon from '@/assets/market_warning.svg'
 import danIcon from '@/assets/market_siren.svg'
 
 const marketStore = useMarketStore()
-console.log(marketStore.contents)
 
 const { averagePrice, userPrice, differentPercent, jeonseRatio } = marketStore.contents?.data || {}
-// const { averagePrice, userPrice, differentPercent, jeonseRatio } = {
-//   averagePrice: 19500.0,
-//   userPrice: 9000.0,
-//   differentPercent: -53.846,
-//   jeonseRatio: 89.0,
-// }
+
 const percentValue = computed(() => {
-  return jeonseRatio - 10
+  return jeonseRatio < 100 ? jeonseRatio - 10 : 90
 })
 
 const jeonseResult = computed(() => {
