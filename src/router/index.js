@@ -46,6 +46,21 @@ const router = createRouter({
       name: 'docu-result',
       component: () => import('@/pages/Docu/DocuResult.vue'),
     },
+    {
+      path: '/market/upload',
+      name: 'market-upload',
+      component: () => import('@/pages/Market/MarketInput.vue'),
+    },
+    {
+      path: '/market/loading',
+      name: 'market-loading',
+      component: () => import('@/pages/Market/MarketLoading.vue'),
+    },
+    {
+      path: '/market/result',
+      name: 'market-result',
+      component: () => import('@/pages/Market/MarketResult.vue'),
+    },
   ],
 })
 
