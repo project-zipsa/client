@@ -15,104 +15,106 @@
         </div>
       </div>
 
-      <form action="" class="bg-white py-6 px-6 pb-4 mb-4 flex flex-col gap-3 w-2/3">
-        <div>
-          <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
-          <input
-            type="text"
-            v-model="price"
-            class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-            placeholder="숫자만 입력 예) 120000"
-            id="price"
-          />
-        </div>
-        <div>
-          <p class="text-xl pb-2">주소 입력</p>
-          <p class="text-red">
-            검색창을 이용해 지번주소를 입력해주세요. --구 --동 형식이어야 합니다.
-          </p>
-          <p>예시) 서울 동대문구 이문동</p>
-          <div class="flex">
+      <div class="w-2/3 pt-12">
+        <form action="" class="bg-white py-8 px-8 pb-4 flex flex-col gap-3">
+          <div>
+            <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
             <input
               type="text"
-              class="placeholder-gray-300 border-[black] border-[1px] rounded p-2 text-xl w-11/12 mr-2"
-              id="address"
-              v-model="address"
+              v-model="price"
+              class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
+              placeholder="숫자만 입력 예) 120000"
+              id="price"
             />
-            <button
-              type="button"
-              @click="execDaumPostcode"
-              class="border-black border-[1px] rounded px-3 py-2 hover:text-blue-500 hover:border-blue-500 w-1/5 text-xl"
-            >
-              검색
-            </button>
           </div>
-        </div>
-        <div class="flex gap-4">
           <div>
-            <p class="text-xl pb-2">층수</p>
+            <p class="text-xl pb-2">주소 입력</p>
+            <p class="text-red">
+              검색창을 이용해 지번주소를 입력해주세요. --구 --동 형식이어야 합니다.
+            </p>
+            <p>예시) 서울 동대문구 이문동</p>
+            <div class="flex">
+              <input
+                type="text"
+                class="placeholder-gray-300 border-[black] border-[1px] rounded p-2 text-xl w-11/12 mr-2"
+                id="address"
+                v-model="address"
+              />
+              <button
+                type="button"
+                @click="execDaumPostcode"
+                class="border-black border-[1px] rounded px-3 py-2 hover:text-blue-500 hover:border-blue-500 w-1/5 text-xl"
+              >
+                검색
+              </button>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div>
+              <p class="text-xl pb-2">층수</p>
+              <input
+                type="text"
+                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
+                placeholder="층수를 입력(층 제외) 예) 7"
+                id="floor"
+                v-model="floor"
+              />
+            </div>
+            <div>
+              <p class="text-xl pb-2">건축년도</p>
+              <input
+                type="text"
+                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
+                placeholder="건축년도 입력(년 제외) 예) 2020"
+                id="builtYear"
+                v-model="builtYear"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xl pb-2">전용 면적 입력</p>
             <input
               type="text"
               class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-              placeholder="층수를 입력(층 제외) 예) 7"
-              id="floor"
-              v-model="floor"
+              placeholder="실수형으로 입력 예). 17.0100"
+              id="area"
+              v-model="area"
             />
           </div>
-          <div>
-            <p class="text-xl pb-2">건축년도</p>
-            <input
-              type="text"
-              class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-              placeholder="건축년도 입력(년 제외) 예) 2020"
-              id="builtYear"
-              v-model="builtYear"
-            />
-          </div>
-        </div>
 
-        <div>
-          <p class="text-xl pb-2">전용 면적 입력</p>
-          <input
-            type="text"
-            class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-            placeholder="실수형으로 입력 예). 17.0100"
-            id="area"
-            v-model="area"
-          />
-        </div>
-
-        <div class="flex gap-4">
-          <div>
-            <p class="text-xl pb-2">주택유형</p>
-            <select
-              name=""
-              id=""
-              v-model="housingType"
-              class="w-full p-2 px-16 text-xl border-[black] border-[1px] rounded"
-            >
-              <option value="다세대">다세대</option>
-              <option value="다가구">다가구</option>
-              <option value="단독">단독</option>
-              <option value="아파트">아파트</option>
-              <option value="연립다세대">연립다세대</option>
-              <option value="오피스텔">오피스텔</option>
-            </select>
+          <div class="flex gap-4">
+            <div>
+              <p class="text-xl pb-2">주택유형</p>
+              <select
+                name=""
+                id=""
+                v-model="housingType"
+                class="w-full p-2 px-16 text-xl border-[black] border-[1px] rounded"
+              >
+                <option value="다세대">다세대</option>
+                <option value="다가구">다가구</option>
+                <option value="단독">단독</option>
+                <option value="아파트">아파트</option>
+                <option value="연립다세대">연립다세대</option>
+                <option value="오피스텔">오피스텔</option>
+              </select>
+            </div>
+            <div>
+              <p class="text-xl pb-2">계약유형</p>
+              <select
+                name=""
+                id=""
+                v-model="contractType"
+                class="w-full p-2 px-24 text-xl border-[black] border-[1px] rounded"
+              >
+                <option value="전세">전세</option>
+                <option value="매매">매매</option>
+              </select>
+            </div>
           </div>
-          <div>
-            <p class="text-xl pb-2">계약유형</p>
-            <select
-              name=""
-              id=""
-              v-model="contractType"
-              class="w-full p-2 px-24 text-xl border-[black] border-[1px] rounded"
-            >
-              <option value="전세">전세</option>
-              <option value="매매">매매</option>
-            </select>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </section>
     <div class="flex flex-col items-end pb-12 pr-10">
       <button

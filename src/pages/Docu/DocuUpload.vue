@@ -3,7 +3,7 @@
     <MainHeaderComponent />
 
     <div class="flex flex-col font-light items-center">
-      <h1 class="font-bold text-4xl p-8 pt-20">주소 입력 및 문서 업로드</h1>
+      <h1 class="font-bold text-3xl p-8 pt-10">주소 입력 및 문서 업로드</h1>
       <p class="">복잡한 내 집 계약, ZIPSA가 대신 분석해드립니다.</p>
       <p class="">주소와 계약서를 업로드하면, 위험 요소를 자동으로 분석해드려요.</p>
       <p class="">
@@ -18,11 +18,11 @@
 
     <section class="flex mt-10">
       <div class="flex flex-col w-1/2 ml-28">
-        <div class="bg-white flex flex-col mr-6 mb-3 p-12 pb-8 border-gray border-[1px] rounded">
-          <h2 class="text-2xl mb-10">계약서 업로드</h2>
+        <div class="bg-white flex flex-col mr-6 mb-3 p-8 border-gray border-[1px] rounded">
+          <h2 class="text-xl mb-5">계약서 업로드</h2>
 
           <!-- 컴포넌트화 필요 -->
-          <form action="" class="mb-6">
+          <form action="" class="mb-3">
             <div class="flex w-full text-center">
               <input id="contract" type="file" @change="setFile" class="hidden" />
 
@@ -50,9 +50,9 @@
           </form>
         </div>
 
-        <div class="bg-white flex flex-col mr-6 p-12 pb-8 border-gray border-[1px] rounded">
-          <h2 class="text-2xl mb-10">등기부등본 업로드</h2>
-          <form action="" class="mb-6">
+        <div class="bg-white flex flex-col mr-6 p-8 border-gray border-[1px] rounded">
+          <h2 class="text-xl mb-5">등기부등본 업로드</h2>
+          <form action="" class="mb-3">
             <div class="flex w-full text-center">
               <input id="registerCopy" type="file" @change="setFile" class="hidden" />
               <label
@@ -84,14 +84,14 @@
           <p class="">내 컴퓨터 찾기를 선택하여 파일을 업로드해 주세요</p>
           <p>※ 업로드 가능한 파일 형식:JPG, JPEG, PNG, PDF, TIF, TIFF</p>
           <p class="text-[red]">
-            ※ 주의 이미지 스캔본은 사용 불가합니다. 원본 PDF파일의 형태로 업로드 해주세요
+            ※ 주의 파일 형식을 확인해주세요. PDF 형식의 파일 업로드는 불가합니다.
           </p>
         </div>
       </div>
 
       <form
         action=""
-        class="flex flex-col bg-white ml-6 mr-28 w-1/2 h-1/2 p-16 pb-32 border-gray border-[1px] rounded"
+        class="flex flex-col bg-white ml-6 mr-28 w-1/2 h-1/2 p-10 border-gray border-[1px] rounded"
       >
         <h2 class="text-2xl pb-12">주소 입력</h2>
         <p class="font-light pb-4 text-xl">기본 주소</p>
@@ -118,7 +118,7 @@
       </form>
     </section>
 
-    <div class="fixed bottom-24 right-28 flex flex-col items-end gap-2 z-50">
+    <div class="fixed bottom-40 right-28 flex flex-col items-end gap-2 z-50">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
         @click="analysis"
@@ -147,8 +147,8 @@ const contractStore = useContractStore()
 const registerStore = useRegisterStore()
 const analysisStore = useAnalysisStore()
 const docuStore = useDocuStore()
-let { uploadContract, uploadContractTest } = contractStore
-let { uploadRegister, uploadRegisterTest } = registerStore
+let { uploadContract } = contractStore
+let { uploadRegister } = registerStore
 let { uploadAnalysis } = analysisStore
 
 const uploadedFiles = reactive({ contract: null, registerCopy: null })
