@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9E3]">
+  <div class="h-[95vh] bg-[#FFF9E3]">
     <div class="flex bg-[#FFD43B] p-4">
       <router-link
         to="/checklist/1"
         class="flex bg-[#FFF9E3] p-3 w-80 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
-        :class="{ 'border-[1.5px]': currentCheck == 1 }"
+        :class="{ 'border-b-2 border-gray-500': currentCheck == 1 }"
       >
         <img src="@/assets/c-before.svg" alt="" class="pr-4" />
         <button class="font-light">계약 전 체크리스트</button>
@@ -12,7 +12,7 @@
       <router-link
         to="/checklist/2"
         class="flex bg-[#FFF9E3] p-3 w-80 border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
-        :class="{ 'border-[1.5px]': currentCheck == 2 }"
+        :class="{ 'border-b-2 border-gray-500': currentCheck == 2 }"
       >
         <img src="@/assets/c-ing.svg" alt="" class="pr-4" />
         <button class="font-light">계약 진행 중 체크리스트</button>
@@ -20,15 +20,15 @@
       <router-link
         to="/checklist/3"
         class="flex bg-[#FFF9E3] p-3 w-80 rounded-[0_30px_30px_0] border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"
-        :class="{ 'border-[1.5px]': currentCheck == 3 }"
+        :class="{ 'border-b-2 border-gray-500': currentCheck == 3 }"
       >
         <img src="@/assets/c-after.svg" alt="" class="pr-4" />
         <button class="font-light">계약 후 체크리스트</button>
       </router-link>
     </div>
 
-    <form action="" class="p-16 pt-6">
-      <div class="p-3">
+    <div class="p-16 pt-6 pb-0">
+      <div class="p-3 z-0">
         <div class="flex justify-between">
           <h2 class="p-2 pb-3 pl-12 text-3xl">전체 진행률</h2>
           <p class="font-light text-3xl pr-116">{{ progressBar[currentRoute.params.id] }}%</p>
@@ -43,40 +43,40 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="p-5">
-        <section class="bg-white px-4">
-          <div
-            v-for="(item, index) in checkInfo"
-            :key="index"
-            class="flex p-8 font-light gap-2 border-b-gray-200 border-b-2"
-          >
-            <input
-              type="checkbox"
-              :id="index"
-              @change.prevent="toggleCheck(index, $event)"
-              :checked="checkStatesById[currentRoute.params.id]?.[index]"
-              class=""
-            />
-            <label class="inline text-base pt-[1px]" :for="index">
-              {{ item.description }}
-            </label>
-            <span class="relative group cursor-pointer pt-[3px]">
-              <img src="@/assets/info.svg" alt="" class="w-5 h-5" />
-              <div
-                class="absolute top-1/2 left-full ml-3 w-[700px] p-3 pl-7 bg-[#FFF9E3] rounded-lg shadow-md text-xl hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100"
-              >
-                <h2 class="font-bold">어떻게 확인하나요?</h2>
-                <div class="pb-4">{{ item.info.how }}</div>
+    <div class="flex-1 p-10 h-[70vh]">
+      <section class="bg-white px-4 overflow-y-auto h-full">
+        <div
+          v-for="(item, index) in checkInfo"
+          :key="index"
+          class="flex p-8 font-light gap-2 border-b-gray-200 border-b-2"
+        >
+          <input
+            type="checkbox"
+            :id="index"
+            @change.prevent="toggleCheck(index, $event)"
+            :checked="checkStatesById[currentRoute.params.id]?.[index]"
+            class=""
+          />
+          <label class="inline text-base pt-[1px] hover:cursor-pointer" :for="index">
+            {{ item.description }}
+          </label>
+          <span class="relative group cursor-pointer pt-[3px]">
+            <img src="@/assets/info.svg" alt="" class="w-5 h-5" />
+            <div
+              class="absolute top-1/2 left-full ml-3 w-[700px] p-3 pl-7 bg-[#FFF9E3] rounded-lg shadow-md text-sm hidden group-hover:block transform -translate-y-1/2 transition-opacity duration-200 opacity-0 group-hover:opacity-100 z-50"
+            >
+              <h2 class="font-bold">어떻게 확인하나요?</h2>
+              <div class="pb-4">{{ item.info.how }}</div>
 
-                <h2 class="font-bold">예방 가능한 사기유형</h2>
-                <div v-for="(item, index) in item.info.prevent" :key="index">- {{ item }}</div>
-              </div>
-            </span>
-          </div>
-        </section>
-      </div>
-    </form>
+              <h2 class="font-bold">예방 가능한 사기유형</h2>
+              <div v-for="(item, index) in item.info.prevent" :key="index">- {{ item }}</div>
+            </div>
+          </span>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 <script>
