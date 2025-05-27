@@ -2,110 +2,179 @@
   <div class="bg-[#FFF9E3] min-h-screen">
     <MainHeaderComponent />
 
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col font-light items-center">
       <h1 class="font-bold text-4xl p-8 pt-20">주소 입력 및 문서 업로드</h1>
-      <p class="font-light">복잡한 내 집 계약, ZIPSA가 대신 분석해드립니다.</p>
-      <p class="font-light">주소와 계약서를 업로드하면, 위험 요소를 자동으로 분석해드려요.</p>
+      <p class="">복잡한 내 집 계약, ZIPSA가 대신 분석해드립니다.</p>
+      <p class="">주소와 계약서를 업로드하면, 위험 요소를 자동으로 분석해드려요.</p>
+      <p class="">
+        ※ 업로드된 문서는 서비스 제공을 위한 분석 목적으로만 사용되며, 다른 용도로는 일절 사용되지
+        않습니다.
+      </p>
+      <p class="text-[red]">
+        ※ 개인정보 보호를 위해 주민등록번호, 계좌번호 등 민감한 정보는 가린 후 업로드하실 것을
+        권장합니다.
+      </p>
     </div>
 
-    <section class="flex">
+    <section class="flex mt-10">
+      <div class="flex flex-col w-1/2 ml-28">
+        <div class="bg-white flex flex-col mr-6 mb-3 p-12 pb-8 border-gray border-[1px] rounded">
+          <h2 class="text-2xl mb-10">계약서 업로드</h2>
+
+          <!-- 컴포넌트화 필요 -->
+          <form action="" class="mb-6">
+            <div class="flex w-full text-center">
+              <input id="contract" type="file" @change="setFile" class="hidden" />
+
+              <label
+                v-if="!isUploaded.contract"
+                for="contract"
+                class="w-full border-dashed border-[1px] border-[black] rounded py-5 flex items-center justify-center"
+              >
+                <img src="@/assets/laptop.svg" alt="" class="mx-2" />
+                내 컴퓨터 찾기
+              </label>
+
+              <div v-else class="flex w-full">
+                <p class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2">
+                  선택된 파일: {{ uploadedFiles.contract?.name }}
+                </p>
+                <button
+                  @click="resetFile"
+                  class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
+                >
+                  X
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="bg-white flex flex-col mr-6 p-12 pb-8 border-gray border-[1px] rounded">
+          <h2 class="text-2xl mb-10">등기부등본 업로드</h2>
+          <form action="" class="mb-6">
+            <div class="flex w-full text-center">
+              <input id="registerCopy" type="file" @change="setFile" class="hidden" />
+              <label
+                v-if="!isUploaded.registerCopy"
+                for="registerCopy"
+                class="w-full border-dashed border-[1px] border-[black] rounded py-5 flex items-center justify-center"
+              >
+                <img src="@/assets/laptop.svg" alt="" class="mx-2" />
+                내 컴퓨터 찾기
+              </label>
+              <div v-else class="flex w-full">
+                <p class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2">
+                  선택된 파일: {{ uploadedFiles.registerCopy?.name }}
+                </p>
+                <button
+                  @click="resetFile"
+                  class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
+                >
+                  X
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- 컴포넌트화 -->
+
+        <div class="mt-10 pb-12 text-center font-light flex flex-col gap-2">
+          <p class="">내 컴퓨터 찾기를 선택하여 파일을 업로드해 주세요</p>
+          <p>※ 업로드 가능한 파일 형식:JPG, JPEG, PNG, PDF, TIF, TIFF</p>
+          <p class="text-[red]">
+            ※ 주의 이미지 스캔본은 사용 불가합니다. 원본 PDF파일의 형태로 업로드 해주세요
+          </p>
+        </div>
+      </div>
+
       <form
         action=""
-        class="flex flex-col bg-white m-20 mr-6 w-1/2 p-12 border-gray border-[1px] rounded"
+        class="flex flex-col bg-white ml-6 mr-28 w-1/2 h-1/2 p-16 pb-32 border-gray border-[1px] rounded"
       >
-        <h2 class="text-2xl pb-20">주소 입력</h2>
-        <p class="font-light text-xl text-red-400 pb-2">지번 주소를 입력해주세요</p>
+        <h2 class="text-2xl pb-12">주소 입력</h2>
+        <p class="font-light pb-4 text-xl">기본 주소</p>
         <div class="flex pb-10">
           <input
             type="text"
             id="address"
             placeholder="검색 버튼을 눌러주세요"
-            class="placeholder-gray-400 pl-2 placeholder-opacity-75 border-black border-[1px] w-4/5 rounded"
+            class="placeholder-gray-400 pl-2 py-4 placeholder-opacity-75 border-black border-[1px] w-4/5 rounded"
           />
           <button
             type="button"
             @click="execDaumPostcode"
-            class="border-black border-[1px] rounded p-2 pr-3 pl-3 ml-6"
+            class="border-black border-[1px] rounded p-2 px-6 ml-6 hover:text-blue-500 hover:border-blue-500"
           >
             검색
           </button>
         </div>
-      </form>
-
-      <div class="flex flex-col bg-white m-20 ml-6 w-1/2 p-12 border-gray border-[1px] rounded">
-        <h2 class="text-2xl mb-20">계약서 업로드</h2>
-        <form action="">
-          <div class="flex w-full text-center">
-            <input id="upload" type="file" @change="setFile" class="hidden" />
-            <label
-              v-if="!isUploaded"
-              for="upload"
-              class="w-full border-dashed border-[1px] border-[black] rounded p-10"
-            >
-              내 컴퓨터 찾기
-            </label>
-            <div v-else-if="isUploaded" class="flex w-full">
-              <p class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2">
-                선택된 파일: {{ fileName }}
-              </p>
-              <button
-                @click="resetFile"
-                class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <div class="mt-32 text-center flex flex-col gap-2">
-          <p class="font-light">버튼 선택 또는 첨부파일을 선택하여 이곳에 드래그&드롭해 주세요.</p>
-          <p class="font-light text-[red]">
-            * 주의 이미지 스캔본은 사용 불가합니다. 원본 PDF파일의 형태로 업로드 해주세요
-          </p>
+        <div class="font-light text-xl flex flex-col items-center gap-1">
+          <p class="">검색 버튼을 클릭하여 주소를 입력해주세요</p>
+          <p class="text-red-400">※ 주소는 지번주소로 입력해주세요.</p>
+          <p class="text-red-400">예) 동대문구 이문동 270-1</p>
         </div>
-      </div>
+      </form>
     </section>
 
-    <div class="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-50">
+    <div class="fixed bottom-24 right-28 flex flex-col items-end gap-2 z-50">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
-        @click.prevent="sendFileData"
+        @click="analysis"
       >
         계약 분석 결과 보러가기
         <span class="text-xl">→</span>
       </button>
+
       <p class="text-sm text-red-400">*필수 항목 입력 후 진행 가능합니다.</p>
     </div>
   </div>
 </template>
 <script setup>
-import zipsaCodes from '@/assets/zipsa-code'
+import zipsaCodes from '@/assets/js/zipsa-code'
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
-import { useDocsStore } from '@/stores/docs/getData'
-import { onMounted, ref } from 'vue'
-// 파일 업로드 ----
-const store = useDocsStore()
-let { uploadData } = store
+import { useContractStore } from '@/stores/docs/contract'
+import { useRegisterStore } from '@/stores/docs/register'
+import { useAnalysisStore } from '@/stores/docs/analysis'
+import { useDocuStore } from '@/stores/docs/result'
+import { onMounted, ref, reactive } from 'vue'
+import { useRoute } from 'vue-router'
+import router from '@/router'
 
-let file = ref(null)
-let fileName = ref('')
-let isUploaded = ref(false)
+// 파일 업로드 ----
+const contractStore = useContractStore()
+const registerStore = useRegisterStore()
+const analysisStore = useAnalysisStore()
+const docuStore = useDocuStore()
+let { uploadContract, uploadContractTest } = contractStore
+let { uploadRegister, uploadRegisterTest } = registerStore
+let { uploadAnalysis } = analysisStore
+
+const uploadedFiles = reactive({ contract: null, registerCopy: null })
+const isUploaded = reactive({ contract: false, registerCopy: false })
+const userId = localStorage.getItem('userId')
 
 function setFile(event) {
-  file = event.target.files[0]
-
-  fileName.value = file.name
-  isUploaded.value = true
+  let file = event.target.files[0]
+  if (event.target.id == 'contract') {
+    uploadedFiles.contract = file
+    isUploaded.contract = true
+  } else {
+    uploadedFiles.registerCopy = file
+    isUploaded.registerCopy = true
+  }
 }
+
 function resetFile(event) {
-  file = null
-  isUploaded.value = false
+  if (event.target.id == 'contract') {
+    uploadedFiles.contract = null
+    isUploaded.contract = false
+  } else {
+    uploadedFiles.registerCopy = null
+    isUploaded.registerCopy = false
+  }
 }
-
-const formData = new FormData()
-formData.append('file', file.value)
-
 // ---- 파일 업로드
 
 // 주소 입력
@@ -146,12 +215,42 @@ function addressToCode() {
 }
 
 // post
-const sendFileData = () => {
+const sendContract = async (file) => {
+  const formData = new FormData()
+  formData.append('leaseContractFiles', file)
+  formData.append('userId', userId)
+
+  return await uploadContract(formData)
+}
+
+const sendRegister = async (file) => {
+  const formData = new FormData()
+  formData.append('leaseContractFile', file)
+  formData.append('userId', userId)
+
+  return await uploadRegister(formData)
+}
+
+const storeData = async (data) => {
+  const { contractRes, registerRes, analysisRes } = data
+  docuStore.contractResult = contractRes
+  docuStore.registerResult = registerRes
+  docuStore.analysisResult = analysisRes
+  console.log(docuStore)
+}
+
+const analysis = async () => {
   let { sigunguCd, bjdongCd } = addressToCode()
-  uploadData({ sigunguCd, bjdongCd, file })
-  file = null
+
+  await router.push('/docu/loading')
+  await sendContract(uploadedFiles.contract)
+  await sendRegister(uploadedFiles.registerCopy)
+  await uploadAnalysis({ sigunguCd, bjdongCd })
+  // await storeData({ contractRes, registerRes, analysisRes })
 }
 
 // -- post
+
+const currentRoute = useRoute()
 </script>
 <style></style>

@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 #app {
-  font-weight: normal;
-  min-width: 1420px;
+  width: 100%;
   max-width: 1920px;
+  margin: 0 auto;
 }
 
 @media (hover: hover) {
