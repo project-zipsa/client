@@ -59,6 +59,11 @@ const login = async () => {
     password: userData.password,
   })
   if (loginStore.statusCode == 200) {
+    const accessToken = loginStore.contents.accessToken
+
+    localStorage.setItem('accessToken', accessToken)
+    localStorage.setItem('userId', userData.loginId)
+
     router.push('/')
     alert('로그인 성공')
   } else {

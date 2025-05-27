@@ -22,5 +22,27 @@
 </template>
 <script setup>
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
+import router from '@/router'
+import { useAnalysisStore } from '@/stores/docs/analysis'
+import { useContractStore } from '@/stores/docs/contract'
+import { useRegisterStore } from '@/stores/docs/register'
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const contractStore = useContractStore()
+const registerStore = useRegisterStore()
+const analysisStore = useAnalysisStore()
+
+watch(
+  () => [contractStore.contents, registerStore.contents, analysisStore.contents],
+  ([contract, register, analysis]) => {
+    console.log('watch:', contract, register, analysis)
+    if (contract && register && analysis) {
+      router.push('/docu/result')
+    }
+  },
+)
+
+const currentRoute = useRoute()
 </script>
 <style></style>

@@ -11,8 +11,9 @@ export const userLoginStore = defineStore('loginStore', {
   actions: {
     async userLogin(payload) {
       try {
-        const response = await axios.post(`${baseURL}zipsa/auth/login`, payload)
-        this.contents = response.data
+        const response = await axios.post(`${baseURL}/zipsa/auth/login`, payload)
+        this.contents = response.data.data
+        console.log(this.contents)
         this.statusCode = response.status
       } catch (err) {
         console.log(err)
