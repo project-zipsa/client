@@ -2,8 +2,9 @@
   <div class="bg-[#FFF9E3] min-h-screen">
     <MainHeaderComponent />
 
-    <div class="flex flex-col font-light items-center">
-      <h1 class="font-bold text-3xl p-8 pt-10">주소 입력 및 문서 업로드</h1>
+    <div class="flex flex-col font-light items-center text-[14px]">
+      <h1 class="font-bold text-[28px] leading-8 line p-8 pt-14">주소 입력 및 문서 업로드</h1>
+
       <p class="">복잡한 내 집 계약, ZIPSA가 대신 분석해드립니다.</p>
       <p class="">주소와 계약서를 업로드하면, 위험 요소를 자동으로 분석해드려요.</p>
       <p class="">
@@ -18,8 +19,8 @@
 
     <section class="flex mt-10">
       <div class="flex flex-col w-1/2 ml-28">
-        <div class="bg-white flex flex-col mr-6 mb-3 p-8 border-gray border-[1px] rounded">
-          <h2 class="text-xl mb-5">계약서 업로드</h2>
+        <div class="bg-white flex flex-col mr-6 mb-3 p-6 border-gray border-[1px] rounded">
+          <h2 class="text-[16px] mb-5">계약서 업로드</h2>
 
           <!-- 컴포넌트화 필요 -->
           <form action="" class="mb-3">
@@ -50,8 +51,8 @@
           </form>
         </div>
 
-        <div class="bg-white flex flex-col mr-6 p-8 border-gray border-[1px] rounded">
-          <h2 class="text-xl mb-5">등기부등본 업로드</h2>
+        <div class="bg-white flex flex-col mr-6 p-6 border-gray border-[1px] rounded">
+          <h2 class="text-[16px] mb-5">등기부등본 업로드</h2>
           <form action="" class="mb-3">
             <div class="flex w-full text-center">
               <input id="registerCopy" type="file" @change="setFile" class="hidden" />
@@ -91,10 +92,10 @@
 
       <form
         action=""
-        class="flex flex-col bg-white ml-6 mr-28 w-1/2 h-1/2 p-10 border-gray border-[1px] rounded"
+        class="flex flex-col bg-white ml-6 mr-28 w-1/2 h-1/2 p-8 border-gray border-[1px] rounded"
       >
-        <h2 class="text-2xl pb-12">주소 입력</h2>
-        <p class="font-light pb-4 text-xl">기본 주소</p>
+        <h2 class="text-xl pb-8">주소 입력</h2>
+        <p class="font-light pb-4 text-[16px]">기본 주소</p>
         <div class="flex pb-10">
           <input
             type="text"
@@ -110,7 +111,7 @@
             검색
           </button>
         </div>
-        <div class="font-light text-xl flex flex-col items-center gap-1">
+        <div class="font-light text-[16px] flex flex-col items-center gap-1">
           <p class="">검색 버튼을 클릭하여 주소를 입력해주세요</p>
           <p class="text-red-400">※ 주소는 지번주소로 입력해주세요.</p>
           <p class="text-red-400">예) 동대문구 이문동 270-1</p>
@@ -118,7 +119,7 @@
       </form>
     </section>
 
-    <div class="fixed bottom-40 right-28 flex flex-col items-end gap-2 z-50">
+    <div class="fixed bottom-0 right-28 flex flex-col items-end gap-2 z-50">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
         @click="analysis"

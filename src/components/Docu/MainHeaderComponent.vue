@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex bg-[#FFD43B] p-3 pl-20">
+    <div class="flex bg-[#FFD43B] p-2 pl-20">
       <router-link
         to="/docu/upload"
         class="flex bg-[#FFF9E3] p-3 w-64 rounded-[30px_0_0_30px] border-[0.5px] border-solid border-[black] shadow hover:shadow-lg transition"

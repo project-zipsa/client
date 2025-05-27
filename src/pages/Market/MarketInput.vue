@@ -4,8 +4,8 @@
 
     <section class="flex pr-12 pt-6">
       <div class="pt-2 w-full relative">
-        <div class="flex flex-col justify-center items-center pt-4 font-light text-xl">
-          <p class="text-4xl pb-4 font-bold">전세금, 주소, 면적, 계약 시점 입력</p>
+        <div class="flex flex-col justify-center items-center pt-4 font-light text-[16px]">
+          <p class="text-3xl pb-8 font-bold">전세금, 주소, 면적, 계약 시점 입력</p>
           <p class="pb-1">복잡한 시세 관련 문제들, ZIPSA가 함께 분석해드립니다.</p>
           <p>아래의 입력란을 채워주시면, 실거래가 기반의 가격 분석을 통해</p>
           <p>객관적인 진단 결과를 제공해드립니다.</p>
@@ -15,8 +15,11 @@
         </div>
       </div>
 
-      <div class="w-2/3 pt-12">
-        <form action="" class="bg-white py-8 px-8 pb-4 flex flex-col gap-3">
+      <div class="w-[75%] p-18 pt-12">
+        <form
+          action=""
+          class="bg-white py-8 px-8 pb-4 flex flex-col gap-3 border-[white] rounded-lg"
+        >
           <div>
             <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
             <input
@@ -29,16 +32,14 @@
           </div>
           <div>
             <p class="text-xl pb-2">주소 입력</p>
-            <p class="text-red">
-              검색창을 이용해 지번주소를 입력해주세요. --구 --동 형식이어야 합니다.
-            </p>
-            <p>예시) 서울 동대문구 이문동</p>
+            <p class="text-[red]">검색창을 이용해 지번주소를 입력해주세요.</p>
             <div class="flex">
               <input
                 type="text"
-                class="placeholder-gray-300 border-[black] border-[1px] rounded p-2 text-xl w-11/12 mr-2"
+                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-11/12 mr-2"
                 id="address"
                 v-model="address"
+                placeholder="예시) 서울 동대문구 이문동 339-4"
               />
               <button
                 type="button"
@@ -50,22 +51,22 @@
             </div>
           </div>
           <div class="flex gap-4">
-            <div>
+            <div class="flex flex-col w-full">
               <p class="text-xl pb-2">층수</p>
               <input
                 type="text"
-                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-                placeholder="층수를 입력(층 제외) 예) 7"
+                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl"
+                placeholder="'층'제외 예) 7"
                 id="floor"
                 v-model="floor"
               />
             </div>
-            <div>
+            <div class="flex flex-col w-full">
               <p class="text-xl pb-2">건축년도</p>
               <input
                 type="text"
-                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-full"
-                placeholder="건축년도 입력(년 제외) 예) 2020"
+                class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl"
+                placeholder="'년' 제외 예) 2020"
                 id="builtYear"
                 v-model="builtYear"
               />
@@ -84,7 +85,7 @@
           </div>
 
           <div class="flex gap-4">
-            <div>
+            <div class="flex flex-col w-full">
               <p class="text-xl pb-2">주택유형</p>
               <select
                 name=""
@@ -100,7 +101,7 @@
                 <option value="오피스텔">오피스텔</option>
               </select>
             </div>
-            <div>
+            <div class="flex flex-col w-full">
               <p class="text-xl pb-2">계약유형</p>
               <select
                 name=""
@@ -116,7 +117,7 @@
         </form>
       </div>
     </section>
-    <div class="flex flex-col items-end pb-12 pr-10">
+    <div class="flex flex-col items-end pb-12 pr-10 pt-4">
       <button
         class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
         @click="sendInfo"

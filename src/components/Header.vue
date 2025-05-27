@@ -3,10 +3,10 @@
     <header class="header">
       <router-link to="/">
         <div class="flex">
-          <img :src="zipsaIcon" alt="" class="pr-3" />
+          <img :src="zipsaIcon" alt="" class="pr-3 w-[100%] h-[80%]" />
           <div class="flex pt-2">
-            <p class="text-yellow-300 text-3xl font-bold">ZIP</p>
-            <p class="text-3xl font-bold">SA</p>
+            <p class="text-yellow-300 text-2xl font-bold">ZIP</p>
+            <p class="text-2xl font-bold">SA</p>
           </div>
         </div>
       </router-link>
@@ -40,7 +40,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 10px;
 
   border-bottom: 1px solid #ddd;
 }
