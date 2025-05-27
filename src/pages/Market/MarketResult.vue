@@ -89,16 +89,19 @@ import { storeToRefs } from 'pinia'
 
 const marketStore = useMarketStore()
 
-const { averagePrice, userPrice, differentPercent, jeonseRatio } = storeToRefs(
-  marketStore.contents?.data || {},
-)
+const { contents } = storeToRefs(marketStore)
+
+const averagePrice = computed(() => contents.value?.data?.averagePrice)
+const userPrice = computed(() => contents.value?.data?.userPrice)
+const differentPercent = computed(() => contents.value?.data?.differentPercent)
+const jeonseRatio = computed(() => contents.value?.data?.jeonseRatio)
 
 const percentValue = computed(() => {
-  return jeonseRatio < 100 ? jeonseRatio - 10 : 90
+  return jeonseRatio.value < 100 ? jeonseRatio.value - 10 : 90
 })
 
 const jeonseResult = computed(() => {
-  if (jeonseRatio <= 70) {
+  if (jeonseRatio.value <= 70) {
     return {
       title: '안전(70% 이하)',
       description: '이 전세금은 현재 매매 시세에 비해 안정적인 수준입니다.',
@@ -106,7 +109,7 @@ const jeonseResult = computed(() => {
       arrow: safeArrow,
       icon: safeIcon,
     }
-  } else if (jeonseRatio < 96) {
+  } else if (jeonseRatio.value < 96) {
     return {
       title: '주의(71~95% 미만)',
       description: '전세금이 다소 높은 편입니다. 전세 계약 전 신중한 확인이 필요합니다.',
@@ -114,7 +117,7 @@ const jeonseResult = computed(() => {
       arrow: cautionArrow,
       icon: cautionIcon,
     }
-  } else if (jeonseRatio > 94) {
+  } else if (jeonseRatio.value > 94) {
     return {
       title: '고위험(95% 이상)',
       description: '매우 높은 전세가율입니다. 깡통전세 또는 사기 피해 가능성이 있습니다.',
@@ -134,7 +137,24 @@ const jeonseResult = computed(() => {
 })
 
 const diffResult = computed(() => {
-  if (Math.abs(differentPercent) <= 10) {
+  if (differentPercent.value <= -20) {
+    return {
+      title: '경고 (-20% 이하)',
+      description: '시세보다 20% 이상 낮아 비정상적인 저가 매물일 수 있습니다.',
+      detail:
+        '→ 허위 매물, 사기 유도형 계약 등 가능성이 높으므로 등기부등본, 보증금 반환 조건, 임대인 신원 등을 반드시 확인하세요. 지나치게 낮은 전세금은 오히려 위험 신호일 수 있습니다.',
+      arrow: cautionArrow,
+      icon: cautionIcon,
+    }
+  } else if (differentPercent.value <= -10) {
+    return {
+      title: '경계 (-10% 이하)',
+      description: '시세보다 약간 낮은 편이므로 추가 확인이 필요합니다.',
+      detail: '→ 수상한 저가 매물일 수 있으니, 보증금 보호 장치를 꼭 확인하세요.',
+      arrow: lcautionArrow,
+      icon: lcautionIcon,
+    }
+  } else if (Math.abs(differentPercent.value) <= 10) {
     return {
       title: '안전 (차이: ±10% 이내)',
       description: '평균 시세와 거의 일치하는 적정한 전세금입니다.',
@@ -142,15 +162,15 @@ const diffResult = computed(() => {
       arrow: safeArrow,
       icon: safeIcon,
     }
-  } else if (Math.abs(differentPercent) <= 20) {
+  } else if (differentPercent.value <= 20) {
     return {
-      title: '경계 (차이: ±10% ~ 20%)',
+      title: '경계 (차이: 10% ~ 20%)',
       description: '시세보다 약간 높은 전세금입니다',
       detail: '→ 단기 급등 구간일 수 있으니 등기부·시세 비교를 다시 확인해보세요',
       arrow: lcautionArrow,
       icon: lcautionIcon,
     }
-  } else if (Math.abs(differentPercent) <= 25) {
+  } else if (differentPercent.value <= 25) {
     return {
       title: '위험 (차이: ±20% 초과)',
       description: '입력하신 전세금은 이 지역 시세보다 20% 이상 높습니다',
@@ -158,7 +178,7 @@ const diffResult = computed(() => {
       arrow: cautionArrow,
       icon: cautionIcon,
     }
-  } else if (Math.abs(differentPercent) > 25) {
+  } else if (differentPercent.value > 25) {
     return {
       title: '고위험 (±25% 이상 또는 극단적 차이)',
       description: '이 전세금은 시세 평균보다 25% 이상 높습니다.',
