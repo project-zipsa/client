@@ -85,7 +85,7 @@
 </template>
 <script>
 import wordDicts from '@/assets/js/dicts'
-import { computed, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 export default {
   name: 'wordDictionary',
   setup() {
