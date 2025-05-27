@@ -79,7 +79,7 @@
   </div>
 </template>
 <script>
-import wordDicts from '@/assets/dicts'
+import wordDicts from '@/assets/js/dicts'
 import { computed, ref } from 'vue'
 export default {
   name: 'wordDictionary',

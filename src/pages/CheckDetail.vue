@@ -68,7 +68,7 @@
   </div>
 </template>
 <script>
-import checklists from '@/assets/checklist-info'
+import checklists from '@/assets/js/checklist-info'
 import { computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 export default {
