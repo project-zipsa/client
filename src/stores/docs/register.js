@@ -11,7 +11,7 @@ export const useRegisterStore = defineStore('registerStore', {
   actions: {
     async uploadRegister(payload) {
       try {
-        const { data } = await axios.post(`${baseURL}/zipsa/clova/lease-contracts`, payload, {
+        const { data } = await axios.post(`${baseURL}zipsa/clova/lease-contracts`, payload, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

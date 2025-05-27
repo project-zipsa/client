@@ -11,7 +11,7 @@ export const useContractStore = defineStore('contractStore', {
   actions: {
     async uploadContract(payload) {
       try {
-        const res = await axios.post(`${baseURL}/zipsa/clova/lease-contracts`, payload, {
+        const res = await axios.post(`${baseURL}zipsa/clova/lease-contracts`, payload, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

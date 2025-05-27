@@ -11,7 +11,7 @@ export const useMarketStore = defineStore('marketStore', {
   actions: {
     async uploadMarket(payload) {
       try {
-        const { data } = await axios.post(`${baseURL}/zipsa/market-price/analysis`, payload, {
+        const { data } = await axios.post(`${baseURL}zipsa/market-price/analysis`, payload, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

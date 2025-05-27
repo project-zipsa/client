@@ -11,7 +11,7 @@ export const useJoinStore = defineStore('joinStore', {
   actions: {
     async userJoin(payload) {
       try {
-        const response = await axios.post(`${baseURL}/zipsa/auth/signup`, payload)
+        const response = await axios.post(`${baseURL}zipsa/auth/signup`, payload)
         this.contents = response.data
         this.statusCode = response.status
       } catch (err) {
