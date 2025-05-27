@@ -85,10 +85,13 @@ import safeIcon from '@/assets/market_safe.svg'
 import lcautionIcon from '@/assets/light_caution_icon.svg'
 import cautionIcon from '@/assets/market_warning.svg'
 import danIcon from '@/assets/market_siren.svg'
+import { storeToRefs } from 'pinia'
 
 const marketStore = useMarketStore()
 
-const { averagePrice, userPrice, differentPercent, jeonseRatio } = marketStore.contents?.data || {}
+const { averagePrice, userPrice, differentPercent, jeonseRatio } = storeToRefs(
+  marketStore.contents?.data || {},
+)
 
 const percentValue = computed(() => {
   return jeonseRatio < 100 ? jeonseRatio - 10 : 90
