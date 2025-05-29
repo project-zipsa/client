@@ -18,7 +18,7 @@ export const useContractStore = defineStore('contractStore', {
           },
         })
         this.contents = data
-        console.log('Data uploaded successfully:', res.data)
+        console.log('Data uploaded successfully:', data)
       } catch (err) {
         console.log(err)
       }
