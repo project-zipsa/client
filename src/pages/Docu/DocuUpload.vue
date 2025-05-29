@@ -158,6 +158,7 @@ const userId = localStorage.getItem('userId')
 
 function setFile(event) {
   let file = event.target.files[0]
+  console.log(event.target.id)
   if (event.target.id == 'contract') {
     uploadedFiles.contract = file
     isUploaded.contract = true
@@ -165,6 +166,7 @@ function setFile(event) {
     uploadedFiles.registerCopy = file
     isUploaded.registerCopy = true
   }
+  console.log(uploadedFiles)
 }
 
 function resetFile(event) {
@@ -209,8 +211,8 @@ function addressToCode() {
   addressKey = addressKey.split(' ').slice(0, 3).join(' ')
   let addressCode = zipsaCodes[addressKey]
 
-  let sigunguCd = Number(addressCode.toString().slice(0, 5))
-  let bjdongCd = addressCode
+  let sigunguCd = addressCode.toString().slice(0, 5)
+  let bjdongCd = addressCode.toString().slice(5, 10)
 
   return { sigunguCd, bjdongCd }
 }
@@ -219,15 +221,15 @@ function addressToCode() {
 const sendContract = async (file) => {
   const formData = new FormData()
   formData.append('leaseContractFiles', file)
-  formData.append('userId', userId)
+  formData.append('userId', 1)
 
   return await uploadContract(formData)
 }
 
 const sendRegister = async (file) => {
   const formData = new FormData()
-  formData.append('leaseContractFile', file)
-  formData.append('userId', userId)
+  formData.append('landTitles', file)
+  formData.append('userId', 1)
 
   return await uploadRegister(formData)
 }
@@ -242,12 +244,13 @@ const storeData = async (data) => {
 
 const analysis = async () => {
   let { sigunguCd, bjdongCd } = addressToCode()
+  console.log(sigunguCd, bjdongCd)
 
   await router.push('/docu/loading')
   await sendContract(uploadedFiles.contract)
   await sendRegister(uploadedFiles.registerCopy)
   await uploadAnalysis({ sigunguCd, bjdongCd })
-  // await storeData({ contractRes, registerRes, analysisRes })
+  await storeData({ contractRes, registerRes, analysisRes })
 }
 
 // -- post

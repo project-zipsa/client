@@ -11,12 +11,13 @@ export const useContractStore = defineStore('contractStore', {
   actions: {
     async uploadContract(payload) {
       try {
-        const res = await axios.post(`${baseURL}zipsa/clova/lease-contracts`, payload, {
+        const { data } = await axios.post(`${baseURL}zipsa/clova/lease-contracts`, payload, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
           },
         })
-        this.contents = res.data
+        this.contents = data
         console.log('Data uploaded successfully:', res.data)
       } catch (err) {
         console.log(err)
