@@ -30,7 +30,7 @@
             </div>
 
             <!-- Sign up button -->
-            <button class="signup-button" @click="join">가입하기</button>
+            <button class="signup-button" @click="onSubmit" :disabled="!isFilled">가입하기</button>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { useJoinStore } from '@/stores/users/join'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 const joinStore = useJoinStore()
 const { userJoin } = joinStore
 
@@ -50,6 +50,41 @@ const formData = reactive({
   password: '',
   confirmPassword: '',
 })
+
+const isFilled = computed(() => {
+  return formData.userName && formData.loginId && formData.password && formData.confirmPassword
+})
+
+const validateInputs = () => {
+  if (formData.userName.length < 2) {
+    alert('이름은 두 글자 이상이어야 합니다.')
+    return false
+  }
+
+  const idRegex = /^[a-zA-Z0-9]{5,15}$/
+  if (!idRegex.test(formData.loginId)) {
+    alert('아이디는 5~15자의 영문 대소문자여야 합니다.')
+    return false
+  }
+
+  const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,16}$/
+  if (!pwRegex.test(formData.password)) {
+    alert('비밀번호는 영문 대소문자, 숫자, 특수문자를 각각 하나 이상 포함한 8~16자여야 합니다.')
+    return false
+  }
+
+  if (formData.password !== formData.confirmPassword) {
+    alert('비밀번호가 일치하지 않습니다.')
+    return false
+  }
+  return true
+}
+
+const onSubmit = async () => {
+  if (validateInputs()) {
+    await join()
+  }
+}
 
 const join = async () => {
   const result = await userJoin({
@@ -265,5 +300,10 @@ const formFields = [
   font-weight: 600;
   font-size: 15px;
   color: white;
+}
+.signup-button:disabled {
+  background-color: #f9e79f; /* lighter yellow */
+  color: #999;
+  cursor: not-allowed;
 }
 </style>

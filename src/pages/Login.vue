@@ -31,7 +31,7 @@
                 />
               </div>
 
-              <button class="login-button" @click="login">로그인</button>
+              <button class="login-button" @click="login" :disabled="!isFilled">로그인</button>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
 <script setup>
 import router from '@/router'
 import { userLoginStore } from '@/stores/users/login'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 const loginStore = userLoginStore()
 const { userLogin } = loginStore
@@ -51,6 +51,10 @@ const { userLogin } = loginStore
 const userData = reactive({
   loginId: '',
   password: '',
+})
+
+const isFilled = computed(() => {
+  return userData.loginId && userData.password
 })
 
 const login = async () => {
@@ -82,7 +86,6 @@ const login = async () => {
 }
 
 .wrapper {
-  overflow-x: hidden;
   width: 100%;
   height: 100vh;
 }
@@ -91,7 +94,6 @@ const login = async () => {
   position: relative;
   width: 100%;
   height: 100vh;
-  left: -14px;
 }
 
 .background-layer {
@@ -229,6 +231,11 @@ const login = async () => {
 
 .login-button:hover {
   background-color: #d4aa0d;
+}
+.login-button:disabled {
+  background-color: #f9e79f; /* lighter yellow */
+  color: #999;
+  cursor: not-allowed;
 }
 
 .highlight {

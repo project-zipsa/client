@@ -37,6 +37,7 @@
               <input
                 type="text"
                 class="placeholder-gray border-[black] border-[1px] rounded p-2 text-xl w-11/12 mr-2"
+                readonly
                 id="address"
                 v-model="address"
                 placeholder="예시) 서울 동대문구 이문동 339-4"
@@ -119,8 +120,9 @@
     </section>
     <div class="flex flex-col items-end pb-12 pr-10 pt-4">
       <button
-        class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
+        class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition disabled:text-gray-400 disabled:cursor-not-allowed duration-200"
         @click="sendInfo"
+        :disabled="!isFilled"
       >
         전세가율, 평균 시세 비교 보러가기
         <span class="text-xl">→</span>
@@ -132,7 +134,7 @@
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import router from '@/router'
 import { useMarketStore } from '@/stores/markets/market'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const marketStore = useMarketStore()
 let { uploadMarket } = marketStore
@@ -144,6 +146,18 @@ let floor = ref()
 let builtYear = ref()
 let contractType = ref()
 let housingType = ref()
+
+const isFilled = computed(() => {
+  return (
+    price.value &&
+    address.value &&
+    area.value &&
+    floor.value &&
+    builtYear.value &&
+    contractType.value &&
+    housingType.value
+  )
+})
 
 const sendInfo = async () => {
   const tokens = address.value.split(' ')
