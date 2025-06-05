@@ -12,13 +12,14 @@ export const useAnalysisStore = defineStore('analysisStore', {
     async uploadAnalysis(payload) {
       try {
         const { data } = await axios.post(`${baseURL}zipsa/contracts/total-analysis`, payload, {
-          // headers: {
-          //   Authorization: `Bearer ${accessToken}`,
-          // },
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          params: {
+            userId: 1,
+          },
         })
         this.contents = data
-
-        console.log('Data uploaded successfully:', data)
       } catch (err) {
         console.log(err)
       }
