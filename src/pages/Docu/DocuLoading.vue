@@ -10,7 +10,9 @@
       </p>
       <p class="font-light">잠시만 기다려 주세요</p>
 
-      <p class="pt-12">로딩 애니메이션</p>
+      <div
+        class="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"
+      ></div>
     </div>
 
     <img
@@ -37,7 +39,7 @@ watch(
   () => [contractStore.contents, registerStore.contents, analysisStore.contents],
   ([contract, register, analysis]) => {
     console.log('watch:', contract, register, analysis)
-    if (contract && register && analysis) {
+    if (register && analysis) {
       router.push('/docu/result')
     }
   },

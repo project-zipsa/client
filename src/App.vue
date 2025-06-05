@@ -6,7 +6,7 @@ import Header from './components/Header.vue'
 <template>
   <div class="min-h-screen">
     <Header />
-    <nav class="">
+    <nav class="bg-[#fff9e3]">
       <router-view></router-view>
     </nav>
   </div>

@@ -98,9 +98,11 @@
         <p class="font-light pb-4 text-[16px]">기본 주소</p>
         <div class="flex pb-10">
           <input
+            v-model="address"
             type="text"
             id="address"
             placeholder="검색 버튼을 눌러주세요"
+            readonly
             class="placeholder-gray-400 pl-2 py-4 placeholder-opacity-75 border-black border-[1px] w-4/5 rounded"
           />
           <button
@@ -121,8 +123,9 @@
 
     <div class="fixed bottom-0 right-28 flex flex-col items-end gap-2 z-50">
       <button
-        class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition"
+        class="flex items-center gap-2 bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition disabled:text-gray-400 disabled:cursor-not-allowed duration-200"
         @click="analysis"
+        :disabled="!isFilled"
       >
         계약 분석 결과 보러가기
         <span class="text-xl">→</span>
@@ -139,7 +142,7 @@ import { useContractStore } from '@/stores/docs/contract'
 import { useRegisterStore } from '@/stores/docs/register'
 import { useAnalysisStore } from '@/stores/docs/analysis'
 import { useDocuStore } from '@/stores/docs/result'
-import { onMounted, ref, reactive } from 'vue'
+import { onMounted, ref, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 
@@ -154,7 +157,11 @@ let { uploadAnalysis } = analysisStore
 
 const uploadedFiles = reactive({ contract: null, registerCopy: null })
 const isUploaded = reactive({ contract: false, registerCopy: false })
-const userId = localStorage.getItem('userId')
+let address = ref('')
+
+const isFilled = computed(() => {
+  return uploadedFiles.contract && uploadedFiles.registerCopy && address.value
+})
 
 function setFile(event) {
   let file = event.target.files[0]
@@ -200,7 +207,7 @@ function execDaumPostcode() {
         addr = data.jibunAddress
       }
 
-      document.getElementById('address').value = addr
+      address.value = addr
     },
   }).open()
 }
@@ -244,13 +251,16 @@ const storeData = async (data) => {
 
 const analysis = async () => {
   let { sigunguCd, bjdongCd } = addressToCode()
-  console.log(sigunguCd, bjdongCd)
+  const formData = new FormData()
+  formData.append('sigunguCd', sigunguCd)
+  formData.append('bjdongCd', bjdongCd)
 
   await router.push('/docu/loading')
+  // await router.push('/docu/result')
   await sendContract(uploadedFiles.contract)
   await sendRegister(uploadedFiles.registerCopy)
-  await uploadAnalysis({ sigunguCd, bjdongCd })
-  await storeData({ contractRes, registerRes, analysisRes })
+  await uploadAnalysis(formData)
+  // await storeData({ contractRes, registerRes, analysisRes })
 }
 
 // -- post
