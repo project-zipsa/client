@@ -19,7 +19,7 @@ export const useContractStore = defineStore('contractStore', {
           },
           params: {
             userId: payload.userId,
-            contractType: payload.leaseContractFiles,
+            leaseContractFiles: payload.leaseContractFiles,
           },
         })
         this.contents = data
