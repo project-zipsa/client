@@ -43,10 +43,13 @@
 <script setup>
 import router from '@/router'
 import { userLoginStore } from '@/stores/users/login'
+import { userInfoStore } from '@/stores/users/user'
 import { computed, reactive, ref } from 'vue'
 
 const loginStore = userLoginStore()
+const userStore = userInfoStore()
 const { userLogin } = loginStore
+const { getUser } = userStore
 
 const userData = reactive({
   loginId: '',
@@ -65,8 +68,10 @@ const login = async () => {
   if (loginStore.statusCode == 200) {
     const accessToken = loginStore.contents.accessToken
 
+    await getUser({ loginId: userData.loginId })
+    const userId = userStore.contents.data.userId
     localStorage.setItem('accessToken', accessToken)
-    localStorage.setItem('userId', userData.loginId)
+    localStorage.setItem('userId', userId)
 
     router.push('/')
     alert('로그인 성공')

@@ -227,16 +227,18 @@ function addressToCode() {
 // post
 const sendContract = async (file) => {
   const formData = new FormData()
+  const userId = localStorage.getItem('userId')
   formData.append('leaseContractFiles', file)
-  formData.append('userId', 1)
+  formData.append('userId', userId)
 
   return await uploadContract(formData)
 }
 
 const sendRegister = async (file) => {
   const formData = new FormData()
+  const userId = localStorage.getItem('userId')
   formData.append('landTitles', file)
-  formData.append('userId', 1)
+  formData.append('userId', userId)
 
   return await uploadRegister(formData)
 }
