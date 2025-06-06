@@ -17,6 +17,10 @@ export const useContractStore = defineStore('contractStore', {
             Authorization: `Bearer ${accessToken}`,
             'Content-Type': 'multipart/form-data',
           },
+          params: {
+            userId: payload.userId,
+            contractType: payload.leaseContractFiles,
+          },
         })
         this.contents = data
       } catch (err) {
