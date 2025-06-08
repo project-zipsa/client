@@ -38,8 +38,11 @@ const analysisStore = useAnalysisStore()
 watch(
   () => [contractStore.contents, registerStore.contents, analysisStore.contents],
   ([contract, register, analysis]) => {
+    const start = performance.now()
     console.log('watch:', contract, register, analysis)
     if (register && analysis) {
+      const end = performance.now()
+      console.log(`실행시간 ${(end - start).toFixed(2)}ms`)
       router.push('/docu/result')
     }
   },
