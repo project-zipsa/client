@@ -23,19 +23,8 @@ export const useRegisterStore = defineStore('registerStore', {
         console.log(err)
       }
     },
-    async uploadRegisterTest() {
-      try {
-        const result = await new Promise((resolve) => {
-          setTimeout(() => {
-            console.log('등기부등본 업로드 테스트')
-            this.contents = true
-            resolve(this.contents)
-          }, 3000)
-        })
-        return result
-      } catch (err) {
-        console.log(err)
-      }
+    reset() {
+      this.contents = null
     },
   },
 })

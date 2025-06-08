@@ -24,5 +24,8 @@ export const useAnalysisStore = defineStore('analysisStore', {
         console.log(err)
       }
     },
+    reset() {
+      this.contents = null
+    },
   },
 })

@@ -141,7 +141,6 @@ import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import { useContractStore } from '@/stores/docs/contract'
 import { useRegisterStore } from '@/stores/docs/register'
 import { useAnalysisStore } from '@/stores/docs/analysis'
-import { useDocuStore } from '@/stores/docs/result'
 import { onMounted, ref, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
@@ -150,10 +149,18 @@ import router from '@/router'
 const contractStore = useContractStore()
 const registerStore = useRegisterStore()
 const analysisStore = useAnalysisStore()
-const docuStore = useDocuStore()
-let { uploadContract } = contractStore
-let { uploadRegister } = registerStore
-let { uploadAnalysis } = analysisStore
+
+let { uploadContract, reset: resetContract } = contractStore
+let { uploadRegister, reset: resetRegister } = registerStore
+let { uploadAnalysis, reset: resetAnalysis } = analysisStore
+const route = useRoute()
+onMounted(() => {
+  if (route.path === '/docu/upload') {
+    resetContract()
+    resetRegister()
+    resetAnalysis()
+  }
+})
 
 const uploadedFiles = reactive({ contract: null, registerCopy: null })
 const isUploaded = reactive({ contract: false, registerCopy: false })
@@ -243,14 +250,6 @@ const sendRegister = async (file) => {
   return await uploadRegister(formData)
 }
 
-const storeData = async (data) => {
-  const { contractRes, registerRes, analysisRes } = data
-  docuStore.contractResult = contractRes
-  docuStore.registerResult = registerRes
-  docuStore.analysisResult = analysisRes
-  console.log(docuStore)
-}
-
 const analysis = async () => {
   let { sigunguCd, bjdongCd } = addressToCode()
   const formData = new FormData()
@@ -258,11 +257,10 @@ const analysis = async () => {
   formData.append('bjdongCd', bjdongCd)
 
   await router.push('/docu/loading')
-  // await router.push('/docu/result')
+
   await sendContract(uploadedFiles.contract)
   await sendRegister(uploadedFiles.registerCopy)
   await uploadAnalysis(formData)
-  // await storeData({ contractRes, registerRes, analysisRes })
 }
 
 // -- post
