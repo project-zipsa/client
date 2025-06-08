@@ -15,7 +15,6 @@ export const useContractStore = defineStore('contractStore', {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'multipart/form-data',
           },
           params: {
             userId: payload.userId,
