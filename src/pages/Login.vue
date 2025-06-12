@@ -69,14 +69,14 @@ const login = async () => {
     const accessToken = loginStore.contents.accessToken
 
     await getUser({ loginId: userData.loginId })
-    const userId = userStore.contents.data.userId
+
     localStorage.setItem('accessToken', accessToken)
-    localStorage.setItem('userId', userId)
+    loginStore.contents.isLogin = true
 
     router.push('/')
-    alert('로그인 성공')
+    alert('환영합니다.')
   } else {
-    alert(loginStore.contents)
+    alert('없는 사용자거나 비밀번호가 일치하지 않습니다')
   }
 }
 </script>
@@ -113,7 +113,7 @@ const login = async () => {
 .image-layer {
   position: absolute;
   width: 100%;
-  height: 1024px;
+
   top: -11px;
   left: 0;
   background-color: #fff9e3;

@@ -172,7 +172,7 @@ const sendInfo = async () => {
       result.push(token)
     }
   }
-  address.value = result[0] + '특별시' + result[1] + result[2]
+  address.value = result[0] + '특별시 ' + result[1] + ' ' + result[2]
 
   await router.push('/market/loading')
 

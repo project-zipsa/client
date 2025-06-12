@@ -109,7 +109,7 @@ export default {
       const keyword = search.value.trim()
       if (keyword) {
         return wordDicts.filter((f) => {
-          return f.word.includes(keyword)
+          return f.word.includes(keyword) || f.meaning.includes(keyword)
         })
       } else {
         return wordDicts
@@ -121,7 +121,7 @@ export default {
     const maxVisible = 4
 
     const totalPages = computed(() => {
-      return Math.ceil(wordDicts.length / perPage)
+      return Math.ceil(filteredWords.value.length / perPage)
     })
 
     const visiblePages = computed(() => {

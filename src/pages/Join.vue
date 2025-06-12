@@ -52,36 +52,28 @@ const formData = reactive({
 })
 
 const isFilled = computed(() => {
-  return formData.userName && formData.loginId && formData.password && formData.confirmPassword
-})
-
-const validateInputs = () => {
   if (formData.userName.length < 2) {
-    alert('이름은 두 글자 이상이어야 합니다.')
     return false
   }
 
   const idRegex = /^[a-zA-Z0-9]{5,15}$/
   if (!idRegex.test(formData.loginId)) {
-    alert('아이디는 5~15자의 영문 대소문자여야 합니다.')
     return false
   }
 
   const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,16}$/
   if (!pwRegex.test(formData.password)) {
-    alert('비밀번호는 영문 대소문자, 숫자, 특수문자를 각각 하나 이상 포함한 8~16자여야 합니다.')
     return false
   }
 
   if (formData.password !== formData.confirmPassword) {
-    alert('비밀번호가 일치하지 않습니다.')
     return false
   }
   return true
-}
+})
 
 const onSubmit = async () => {
-  if (validateInputs()) {
+  if (isFilled) {
     await join()
   }
 }
@@ -147,14 +139,14 @@ const formFields = [
 
 .inner-container {
   position: relative;
-  height: 1024px;
+
   width: 100%;
 }
 
 .background {
   position: absolute;
   width: 100%;
-  height: 1024px;
+
   top: 0;
   left: 0;
   background-color: #fff9e3;

@@ -13,26 +13,37 @@
 
       <nav class="nav">
         <div class="auto-links flex gap-5 text-xl">
-          <router-link to="/login">LOGIN</router-link>
-          <router-link to="/join">JOIN</router-link>
+          <div v-if="!isLogin">
+            <router-link to="/login" class="pr-4">LOGIN</router-link>
+            <router-link to="/join" class="pr-4">JOIN</router-link>
+          </div>
+
+          <div v-else>
+            <span> {{ nickname }}님, 환영합니다. </span>
+            <span>
+              <router-link to="/mypage">My Account / </router-link>
+              <button>logout</button>
+            </span>
+          </div>
         </div>
       </nav>
     </header>
   </div>
 </template>
-<script>
+<script setup>
 import zipsaIcon from '@/assets/zipsa.svg'
+import { userLoginStore } from '@/stores/users/login'
+import { userInfoStore } from '@/stores/users/user'
+import { computed } from 'vue'
+import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-export default {
-  name: 'HeaderComponent',
-  setup() {
-    const currentRoute = useRoute()
-    return {
-      zipsaIcon,
-      currentRoute,
-    }
-  },
-}
+
+const currentRoute = useRoute()
+const userStore = userInfoStore()
+const loginStore = userLoginStore()
+
+const isLogin = computed(() => loginStore.contents?.isLogin)
+const nickname = computed(() => userStore.contents?.username)
 </script>
 <style>
 .header {

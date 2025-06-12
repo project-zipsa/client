@@ -5,7 +5,9 @@ const baseURL = import.meta.env.VITE_API_SERVER
 
 export const userLoginStore = defineStore('loginStore', {
   state: () => ({
-    contents: null,
+    contents: {
+      isLogin: false,
+    },
     statusCode: null,
   }),
   actions: {
@@ -14,9 +16,7 @@ export const userLoginStore = defineStore('loginStore', {
         const response = await axios.post(`${baseURL}zipsa/auth/login`, payload)
         this.contents = response.data.data
         this.statusCode = response.status
-      } catch (err) {
-        console.log(err)
-      }
+      } catch (err) {}
     },
   },
 })

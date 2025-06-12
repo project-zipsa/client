@@ -11,13 +11,14 @@ export const userInfoStore = defineStore('userInfoStore', {
   actions: {
     async getUser(payload) {
       try {
-        const response = await axios.get(`${baseURL}zipsa/auth`, {
+        const { data } = await axios.get(`${baseURL}zipsa/auth`, {
           params: {
             loginId: payload.loginId,
           },
         })
 
-        this.contents = response.data
+        this.contents = data.data
+        console.log(this.contents)
       } catch (err) {
         console.log(err)
       }

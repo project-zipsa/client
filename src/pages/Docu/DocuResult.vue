@@ -60,7 +60,7 @@
             <div class="" v-for="(item, index) in dangerLists" :key="index">
               <div class="flex gap-4 p-3">
                 <img src="@/assets/mortgage_warning.svg" alt="" />
-                <div>{{ item }}</div>
+                <div class="h-16 flex flex-col justify-center">{{ item }}</div>
               </div>
             </div>
           </div>
