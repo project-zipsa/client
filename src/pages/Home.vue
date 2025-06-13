@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#FFF9E3] px-16 py-16">
-    <main class="grid grid-cols-[60%_35%] grid-rows-[40%_40%] gap-12">
+    <main class="grid grid-cols-[56%_39%] grid-rows-[40%_40%] gap-12">
       <div
         class="flex items-center justify-between px-6 bg-[#ffffff] rounded-xl shadow-md bg-opacity-60"
       >
@@ -34,13 +34,13 @@
         <div>
           <h1 class="text-3xl font-bold mb-2 pb-4">나의 계약 분석</h1>
           <p class="text-gray-700 text-xl pb-2">안전한 계약, 그 시작!</p>
-          <router-link to="/docu/upload">
-            <button class="text-500 font-semibold hover:underline pb-2">바로가기↗</button>
-          </router-link>
+          <button class="text-500 font-semibold hover:underline pb-2" @click="canAccess('docu')">
+            바로가기↗
+          </button>
           <p class="text-gray-700 text-xl pb-2">시세 정보? 여기에 다 있으니까!</p>
-          <router-link to="/market/upload">
-            <button class="text-500 font-semibold hover:underline">바로가기↗</button>
-          </router-link>
+          <button class="text-500 font-semibold hover:underline" @click="canAccess('market')">
+            바로가기↗
+          </button>
         </div>
 
         <img src="@/assets/home3.png" alt="" class="w-60 h-auto self-start" />
@@ -60,15 +60,26 @@
     </main>
   </div>
 </template>
-<script>
-import { useRoute } from 'vue-router'
+<script setup>
+import router from '@/router'
+import { useLoginStore } from '@/stores/users/login'
+import { computed } from 'vue'
 
-export default {
-  name: 'Home',
-  setup() {
-    const currentRoute = useRoute()
-    return { currentRoute }
-  },
+const loginStore = useLoginStore()
+const { isLogin } = loginStore.contents
+
+const auth = computed(() => {
+  return isLogin
+})
+function canAccess(loc) {
+  if (!auth.value) {
+    alert('로그인 후 이용해주세요')
+    router.replace({ name: 'login' })
+  } else if (loc == 'docu') {
+    router.push({ name: 'docu-upload' })
+  } else {
+    router.push({ name: 'market-upload' })
+  }
 }
 </script>
 <style></style>
