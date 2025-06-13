@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 const baseURL = import.meta.env.VITE_API_SERVER
 
-export const userInfoStore = defineStore('userInfoStore', {
+export const useInfoStore = defineStore('userInfoStore', {
   state: () => ({
     contents: null,
     statusCode: null,

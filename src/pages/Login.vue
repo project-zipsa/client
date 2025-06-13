@@ -42,12 +42,12 @@
 
 <script setup>
 import router from '@/router'
-import { userLoginStore } from '@/stores/users/login'
-import { userInfoStore } from '@/stores/users/user'
+import { useLoginStore } from '@/stores/users/login'
+import { useInfoStore } from '@/stores/users/user'
 import { computed, reactive, ref } from 'vue'
 
-const loginStore = userLoginStore()
-const userStore = userInfoStore()
+const loginStore = useLoginStore()
+const userStore = useInfoStore()
 const { userLogin } = loginStore
 const { getUser } = userStore
 

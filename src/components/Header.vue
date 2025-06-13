@@ -32,15 +32,14 @@
 </template>
 <script setup>
 import zipsaIcon from '@/assets/zipsa.svg'
-import { userLoginStore } from '@/stores/users/login'
-import { userInfoStore } from '@/stores/users/user'
+import { useLoginStore } from '@/stores/users/login'
+import { useInfoStore } from '@/stores/users/user'
 import { computed } from 'vue'
-import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const currentRoute = useRoute()
-const userStore = userInfoStore()
-const loginStore = userLoginStore()
+const userStore = useInfoStore()
+const loginStore = useLoginStore()
 
 const isLogin = computed(() => loginStore.contents?.isLogin)
 const nickname = computed(() => userStore.contents?.username)
