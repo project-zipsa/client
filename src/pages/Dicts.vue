@@ -22,6 +22,7 @@
     </div>
 
     <section class="flex flex-col gap-3 justify-content items-center">
+      <div v-if="!checkExists">해당 단어는 리스트에 없습니다</div>
       <div
         v-for="(item, index) in showPages"
         :key="index"
@@ -116,6 +117,10 @@ export default {
       }
     })
 
+    const checkExists = computed(() => {
+      return filteredWords.value.length > 0
+    })
+
     let currentPage = ref(1)
     const perPage = 6
     const maxVisible = 4
@@ -141,6 +146,7 @@ export default {
       words,
       filteredWords,
       search,
+      checkExists,
       showPages,
       currentPage,
       totalPages,
