@@ -1,11 +1,11 @@
 <template>
   <div>
     <div
-      class="bg-white flex p-3 border-gray-60 border-[1px] rounded cursor-point"
+      class="bg-white flex p-5 border-gray-60 border-[1px] rounded cursor-point"
       @click="toggleMain"
     >
       <img src="@/assets/small-title-docu.svg" alt="" />
-      <h2 class="font-bold text-2xl bg-white pl-2">위험 항목 기준표</h2>
+      <h2 class="font-semibold text-lg pl-2 pt-[2px]">위험 항목 기준표</h2>
       <span class="text-2xl pl-2">{{ open ? '▲' : '▼' }}</span>
     </div>
 

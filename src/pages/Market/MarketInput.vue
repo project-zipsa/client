@@ -11,15 +11,12 @@
           <p>객관적인 진단 결과를 제공해드립니다.</p>
         </div>
         <div class="">
-          <img src="@/assets/market.png" alt="" class="h-[500px] pl-10 absolute top-24" />
+          <img src="@/assets/market.png" alt="" class="h-[500px] pl-10 absolute top-30" />
         </div>
       </div>
 
       <div class="w-[75%] p-18 pt-12">
-        <form
-          action=""
-          class="bg-white py-8 px-8 pb-4 flex flex-col gap-3 border-[white] rounded-lg"
-        >
+        <form action="" class="bg-white p-12 flex flex-col gap-3 border-[white] rounded-lg">
           <div>
             <p class="text-xl pb-2">거래 금액 입력 (단위: 만 원)</p>
             <input
@@ -185,14 +182,6 @@ const sendInfo = async () => {
     contractType: contractType.value,
     price: parseInt(price.value),
   })
-
-  // price.value = 0
-  // address.value = ''
-  // area.value = 0
-  // floor.value = 0
-  // builtYear.value = 0
-  // contractType.value = ''
-  // housingType.value = ''
 }
 
 onMounted(() => {

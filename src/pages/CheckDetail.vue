@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[95vh] bg-[#FFF9E3]">
+  <div class="bg-[#FFF9E3]">
     <div class="flex bg-[#FFD43B] p-4">
       <router-link
         to="/checklist/1"
@@ -27,10 +27,10 @@
       </router-link>
     </div>
 
-    <div class="p-16 pt-6 pb-0">
-      <div class="p-3 z-0">
+    <div class="px-10 pt-6 pb-0">
+      <div class="p-3 py-5 z-0 bg-white rounded">
         <div class="flex justify-between">
-          <h2 class="p-2 pb-3 pl-12 text-3xl">전체 진행률</h2>
+          <h2 class="p-2 pb-6 pl-12 text-2xl">전체 진행률</h2>
           <p class="font-light text-3xl pr-116">{{ progressBar[currentRoute.params.id] }}%</p>
         </div>
 

@@ -13,16 +13,16 @@
         </div>
       </div>
 
-      <div class="w-full">
-        <div class="">
+      <div class="w-full pt-16">
+        <div class="pb-8">
           <!-- 아코디언1 -->
           <div
-            class="bg-white flex p-3 border-gray-60 border-[1px] rounded cursor-point"
+            class="bg-white flex p-5 border-gray-60 border-[1px] rounded cursor-point"
             @click="toggleMain(0)"
           >
             <img src="@/assets/small-title-docu.svg" alt="" />
-            <h2 class="font-bold text-2xl pl-2">주요 계약 내용 정리</h2>
-            <span class="text-2xl pl-2">{{ isOpen[0] ? '▲' : '▼' }}</span>
+            <h2 class="font-semibold text-lg pl-2 pt-[2px]">주요 계약 내용 정리</h2>
+            <span class="text-xl pl-2">{{ isOpen[0] ? '▲' : '▼' }}</span>
           </div>
           <div
             class="flex flex-col gap-5 font-light bg-[#D9D9D9] p-10 rounded border-white border-[1px]"
@@ -46,13 +46,13 @@
           </div>
         </div>
         <!-- 아코디언1 -->
-        <div>
+        <div class="pb-8">
           <div
-            class="bg-white flex p-3 border-gray-60 border-[1px] rounded cursor-point"
+            class="bg-white flex p-5 border-gray-60 border-[1px] rounded cursor-point"
             @click="toggleMain(1)"
           >
             <img src="@/assets/small-title-docu.svg" alt="" />
-            <h2 class="font-bold text-2xl bg-white pl-2">발견된 위험 요소</h2>
+            <h2 class="font-semibold text-lg pl-2 pt-[2px]">발견된 위험 요소</h2>
             <span class="text-2xl pl-2">{{ isOpen[1] ? '▲' : '▼' }}</span>
           </div>
 
@@ -66,13 +66,13 @@
           </div>
         </div>
         <!-- 아코디언1 -->
-        <div>
+        <div class="pb-8">
           <div
-            class="bg-white flex p-3 border-gray-60 border-[1px] rounded cursor-point"
+            class="bg-white flex p-5 border-gray-60 border-[1px] rounded cursor-point"
             @click="toggleMain(2)"
           >
             <img src="@/assets/small-title-docu.svg" alt="" />
-            <h2 class="font-bold text-2xl bg-white pl-2">발생 가능한 사기 / 대처법</h2>
+            <h2 class="font-semibold text-lg pl-2 pt-[2px]">발생 가능한 사기 / 대처법</h2>
             <span class="text-2xl pl-2">{{ isOpen[2] ? '▲' : '▼' }}</span>
           </div>
 
@@ -82,21 +82,20 @@
             :key="index"
             class="border-gray-60 border-[1px] mb-1"
           >
-            <div @click="toggleInner(index)" class="flex bg-white p-2 pl-10">
-              <img src="@/assets/mortgage_warning.svg" alt="" class="pr-2" />
-              <h3 class="font-bold">
+            <div class="flex bg-white p-2 pl-6">
+              <img src="@/assets/mortgage_warning.svg" alt="" class="pr-2 w-7 h-7" />
+              <h3 class="font-bold pt-[2px]">
                 {{ item['제목'] }}
               </h3>
-              <span class="text-2xl pl-2">{{ innerOpen[index] ? '▲' : '▼' }}</span>
             </div>
-            <div v-show="innerOpen[index]" class="bg-[#D9D9D9] px-10 py-4">
+            <div class="bg-[#D9D9D9] px-10 py-4">
               <p>{{ item['대처 방안'] }}</p>
               <p>{{ item['사기 유형'] }}</p>
             </div>
           </div>
         </div>
         <!--아코디언1  -->
-        <div>
+        <div class="pb-8">
           <CriterionComponent :open="isOpen[3]" :toggleMain="() => toggleMain(3)" />
         </div>
       </div>
@@ -266,7 +265,8 @@ const totalScore = computed(() => {
   const contractScore = parseInt(contractResult.value['전체 위험도 점수'])
   const analysisScore = filteredResults.value.map((x) => x['점수'])
 
-  return contractScore + analysisScore.reduce((a, b) => a + b)
+  // return contractScore + analysisScore.reduce((a, b) => a + b)
+  return 0
 })
 
 const totalAssessment = computed(() => {
