@@ -37,7 +37,7 @@
             </div>
             <div class="flex flex-row gap-9">
               <p>보증금/월세</p>
-              <p>{{ contractResult.data['총 보증금'] }}/월세 없음(전세계약)</p>
+              <p>{{ contractResult.data['총 보증금'].toLocaleString() }}/월세 없음(전세계약)</p>
             </div>
             <div class="flex flex-row gap-9">
               <p>주소</p>

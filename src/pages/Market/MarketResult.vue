@@ -53,8 +53,8 @@
               <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
             </span>
 
-            <p class="pb-3">동일 건물 평균 시세: {{ averagePrice }}만 원</p>
-            <p class="pb-3">입력하신 거래 금액: {{ userPrice }}만 원</p>
+            <p class="pb-3">동일 건물 평균 시세: {{ averagePrice.toLocaleString() }}만 원</p>
+            <p class="pb-3">입력하신 거래 금액: {{ userPrice.toLocaleString() }}만 원</p>
             <p>차이: {{ Math.ceil(differentPercent) }} %</p>
           </div>
 
