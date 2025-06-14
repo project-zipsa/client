@@ -49,7 +49,7 @@ import { computed, reactive, ref } from 'vue'
 const loginStore = useLoginStore()
 const userStore = useInfoStore()
 const { userLogin } = loginStore
-const { getUser } = userStore
+const { getUser, resetUser } = userStore
 
 const userData = reactive({
   loginId: '',
@@ -70,11 +70,11 @@ const login = async () => {
 
     await getUser({ loginId: userData.loginId })
 
-    localStorage.setItem('accessToken', accessToken)
     loginStore.contents.isLogin = true
+    userStore.contents.username = userStore.contents.username
 
-    router.push('/')
     alert('환영합니다.')
+    router.push('/')
   } else {
     alert('없는 사용자거나 비밀번호가 일치하지 않습니다')
   }

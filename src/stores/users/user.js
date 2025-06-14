@@ -22,5 +22,10 @@ export const useInfoStore = defineStore('userInfoStore', {
         console.log(err)
       }
     },
+    resetUser() {
+      this.contents = null
+      this.statusCode = null
+    },
   },
+  persist: true,
 })

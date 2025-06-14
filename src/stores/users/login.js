@@ -18,5 +18,12 @@ export const useLoginStore = defineStore('loginStore', {
         this.statusCode = response.status
       } catch (err) {}
     },
+    userLogout() {
+      this.contents = {
+        isLogin: false,
+      }
+      this.statusCode = null
+    },
   },
+  persist: true,
 })

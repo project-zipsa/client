@@ -64,8 +64,10 @@
 import router from '@/router'
 import { useLoginStore } from '@/stores/users/login'
 import { computed } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const loginStore = useLoginStore()
+const toast = useToast()
 const { isLogin } = loginStore.contents
 
 const auth = computed(() => {
@@ -73,7 +75,7 @@ const auth = computed(() => {
 })
 function canAccess(loc) {
   if (!auth.value) {
-    alert('로그인 후 이용해주세요')
+    toast.error('로그인 후 이용해주세요', { timeout: 5000 })
     router.replace({ name: 'login' })
   } else if (loc == 'docu') {
     router.push({ name: 'docu-upload' })
