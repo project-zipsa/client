@@ -5,7 +5,6 @@ import Login from '@/pages/Login.vue'
 import Checklist from '@/pages/Checklist.vue'
 import CheckDetail from '@/pages/CheckDetail.vue'
 import Dicts from '@/pages/Dicts.vue'
-import MyPage from '@/pages/MyPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,11 +25,7 @@ const router = createRouter({
       name: 'checklist-main',
       component: Checklist,
     },
-    {
-      path: '/mypage',
-      name: 'mypage',
-      component: MyPage,
-    },
+
     { path: '/checklist/:id', name: 'checklistId', component: CheckDetail },
     {
       path: '/dicts',
