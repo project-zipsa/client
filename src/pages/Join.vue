@@ -86,6 +86,8 @@ const join = async () => {
   })
   if (joinStore.statusCode == 201) {
     alert('회원가입이 완료되었습니다')
+  } else if (joinStore.statusCode == 400) {
+    alert('이미 존재하는 아이디입니다')
   }
 }
 

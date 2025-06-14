@@ -15,7 +15,7 @@ export const useJoinStore = defineStore('joinStore', {
         this.contents = response.data
         this.statusCode = response.status
       } catch (err) {
-        console.log(err)
+        this.statusCode = err.response ? err.response.status : 500
       }
     },
   },
