@@ -172,7 +172,13 @@ const isFilled = computed(() => {
 
 function setFile(event) {
   let file = event.target.files[0]
-  console.log(event.target.id)
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(file.type)) {
+    alert('JPEG 또는 PNG 파일만 업로드 가능합니다.')
+    return
+  }
+
   if (event.target.id == 'contract') {
     uploadedFiles.contract = file
     isUploaded.contract = true
