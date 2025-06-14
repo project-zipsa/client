@@ -25,20 +25,29 @@
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import router from '@/router'
 import { useMarketStore } from '@/stores/markets/market'
-import { watch, watchEffect } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const marketStore = useMarketStore()
-console.log('result', marketStore.contents)
+const { reset: resetMarket } = marketStore
+const route = useRoute()
+
+onMounted(() => {
+  if (route.path === '/market/upload') {
+    resetMarket()
+  }
+})
 
 watch(
-  () => marketStore.contents,
-  (val) => {
-    if (val && val.data) {
-      router.push('/market/result')
+  () => [marketStore.statusCode, marketStore.contents],
+  ([status, contents]) => {
+    if (status === 204) {
+      alert('조건에 맞는 데이터가 없습니다.')
+      router.push({ name: 'market-upload' })
+    } else if (contents && contents.data) {
+      router.push({ name: 'market-result' })
     }
   },
-  { immediate: true }, // 필요시 바로 실행
 )
 const currentRoute = useRoute()
 </script>

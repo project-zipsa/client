@@ -105,7 +105,7 @@
                 name=""
                 id=""
                 v-model="contractType"
-                class="w-full p-2 px-24 text-xl border-[black] border-[1px] rounded"
+                class="w-full p-2 px-20 text-xl border-[black] border-[1px] rounded"
               >
                 <option value="전세">전세</option>
                 <option value="매매">매매</option>
@@ -131,7 +131,7 @@
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import router from '@/router'
 import { useMarketStore } from '@/stores/markets/market'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 const marketStore = useMarketStore()
 let { uploadMarket } = marketStore
@@ -171,17 +171,21 @@ const sendInfo = async () => {
   }
   address.value = result[0] + '특별시 ' + result[1] + ' ' + result[2]
 
-  await router.push('/market/loading')
+  try {
+    await router.push({ name: 'market-loading' })
 
-  await uploadMarket({
-    address: address.value,
-    area: parseFloat(area.value),
-    floor: parseInt(floor.value),
-    builtYear: parseInt(builtYear.value),
-    housingType: housingType.value,
-    contractType: contractType.value,
-    price: parseInt(price.value),
-  })
+    await uploadMarket({
+      address: address.value,
+      area: parseFloat(area.value),
+      floor: parseInt(floor.value),
+      builtYear: parseInt(builtYear.value),
+      housingType: housingType.value,
+      contractType: contractType.value,
+      price: parseInt(price.value),
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 onMounted(() => {
@@ -199,36 +203,13 @@ function execDaumPostcode() {
 
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') {
-        // 사용자가 도로명 주소를 선택했을 경우
-        addr = data.roadAddress
+        alert('지번 주소를 선택해주세요')
+        address.value = ''
       } else {
         // 사용자가 지번 주소를 선택했을 경우(J)
         addr = data.jibunAddress
       }
 
-      // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-      if (data.userSelectedType === 'R') {
-        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-          extraAddr += data.bname
-        }
-        // 건물명이 있고, 공동주택일 경우 추가한다.
-        if (data.buildingName !== '' && data.apartment === 'Y') {
-          extraAddr += extraAddr !== '' ? ', ' + data.buildingName : data.buildingName
-        }
-        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-        if (extraAddr !== '') {
-          extraAddr = ' (' + extraAddr + ')'
-        }
-        // 조합된 참고항목을 해당 필드에 넣는다.
-        console.log(extraAddr)
-        // document.getElementById('extraAddress').value = extraAddr
-      } else {
-        // document.getElementById('extraAddress').value = ''
-      }
-
-      document.getElementById('address').value = addr
       address.value = addr
       // 커서를 상세주소 필드로 이동한다.
     },

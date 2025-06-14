@@ -49,7 +49,7 @@
 
           <div class="text-xl flex flex-col justify-center items-center gap-1">
             <span class="flex gap-2">
-              <img :src="diffResult.icon" alt="" class="" />
+              <img :src="diffResult.icon" alt="" class="mb-4" />
               <h2 class="text-3xl pb-5 font-bold">{{ diffResult.title }}</h2>
             </span>
 

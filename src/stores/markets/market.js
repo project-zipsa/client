@@ -7,20 +7,29 @@ const accessToken = localStorage.getItem('accessToken')
 export const useMarketStore = defineStore('marketStore', {
   state: () => ({
     contents: null,
+    statusCode: null,
   }),
   actions: {
     async uploadMarket(payload) {
       try {
-        const { data } = await axios.post(`${baseURL}zipsa/market-price/analysis`, payload, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+        const { data, status } = await axios.post(
+          `${baseURL}zipsa/market-price/analysis`,
+          payload,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           },
-        })
-        console.log('uploadMarket data', data)
+        )
         this.contents = data
+        this.statusCode = status
       } catch (err) {
         console.log(err)
       }
+    },
+    reset() {
+      this.contents = null
+      this.statusCode = null
     },
   },
 })
