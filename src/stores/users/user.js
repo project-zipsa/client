@@ -18,7 +18,6 @@ export const useInfoStore = defineStore('userInfoStore', {
         })
 
         this.contents = data.data
-        console.log(this.contents)
       } catch (err) {
         console.log(err)
       }
