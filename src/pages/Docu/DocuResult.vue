@@ -213,11 +213,25 @@ const analysisResult = computed(() => analysisStore.contents || {})
 // filtered
 const filteredResults = computed(() => {
   const result = []
-  for (const key of Object.keys(analysisResult.value)) {
-    if (analysisData[key] && analysisData[key].check === analysisResult.value[key]) {
-      result.push(analysisData[key])
+  for (const key of Object.keys(analysisResult)) {
+    const val = analysisResult[key]
+    if (val.includes('해당 없음') || val.includes('해당없음')) {
+      continue
+    } else if (val === '불확실') {
+      result.push({ ...analysisData[key], uncertain: true })
+    } else if (val === 'True' || val === 'False') {
+      if (analysisData[key] && analysisData[key].check === val) {
+        result.push(analysisData[key])
+      }
+    } else {
+      for (const k of Object.keys(analysisData[key])) {
+        if (k === val) {
+          result.push(analysisData[key][k])
+        }
+      }
     }
   }
+  console.log(result)
   return result
 })
 
@@ -263,10 +277,11 @@ const preventLists = computed(() => {
 // 총 위험도 계산
 const totalScore = computed(() => {
   const contractScore = parseInt(contractResult.value['전체 위험도 점수'])
-  const analysisScore = filteredResults.value.map((x) => x['점수'])
+  const analysisScore = filteredResults.value
+    .filter((x) => x.uncertain !== true)
+    .map((x) => x['점수'])
 
-  // return contractScore + analysisScore.reduce((a, b) => a + b)
-  return 0
+  return contractScore + analysisScore.reduce((a, b) => a + b)
 })
 
 const totalAssessment = computed(() => {

@@ -62,6 +62,11 @@ const router = createRouter({
       name: 'market-result',
       component: () => import('@/pages/Market/MarketResult.vue'),
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/pages/Test.vue'),
+    },
   ],
 })
 
