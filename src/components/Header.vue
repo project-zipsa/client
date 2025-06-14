@@ -19,10 +19,10 @@
           </div>
 
           <div v-else>
-            <span> {{ nickname }}님, 환영합니다. </span>
+            <span class="text-lg pr-5"> {{ nickname }}님 </span>
             <span>
-              <router-link to="/mypage">My Account / </router-link>
-              <button>logout</button>
+              <router-link to="/mypage" class="pr-2">MY PAGE </router-link>
+              <button class="pl-2">LOGOUT</button>
             </span>
           </div>
         </div>
