@@ -27,6 +27,7 @@ import router from '@/router'
 import { useMarketStore } from '@/stores/markets/market'
 import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useToast } from 'vue-toastification'
 
 const marketStore = useMarketStore()
 const { reset: resetMarket } = marketStore
@@ -41,9 +42,12 @@ onMounted(() => {
 watch(
   () => [marketStore.statusCode, marketStore.contents],
   ([status, contents]) => {
+    const toast = useToast()
     if (status === 204) {
-      alert('조건에 맞는 데이터가 없습니다.')
       router.push({ name: 'market-upload' })
+      toast.error('조건에 맞는 데이터가 없습니다.', {
+        timeout: 5000,
+      })
     } else if (contents && contents.data) {
       router.push({ name: 'market-result' })
     }

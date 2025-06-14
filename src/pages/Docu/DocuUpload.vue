@@ -83,7 +83,7 @@
 
         <div class="mt-10 pb-12 text-center font-light flex flex-col gap-2">
           <p class="">내 컴퓨터 찾기를 선택하여 파일을 업로드해 주세요</p>
-          <p>※ 업로드 가능한 파일 형식:JPG, JPEG, PNG, PDF, TIF, TIFF</p>
+          <p>※ 업로드 가능한 파일 형식:JPG, JPEG, PNG, TIF, TIFF</p>
           <p class="text-[red]">
             ※ 주의 파일 형식을 확인해주세요. PDF 형식의 파일 업로드는 불가합니다.
           </p>
@@ -144,6 +144,7 @@ import { useAnalysisStore } from '@/stores/docs/analysis'
 import { onMounted, ref, reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
+import { useToast } from 'vue-toastification'
 
 // 파일 업로드 ----
 const contractStore = useContractStore()
@@ -154,6 +155,7 @@ let { uploadContract, reset: resetContract } = contractStore
 let { uploadRegister, reset: resetRegister } = registerStore
 let { uploadAnalysis, reset: resetAnalysis } = analysisStore
 const route = useRoute()
+const toast = useToast()
 onMounted(() => {
   if (route.path === '/docu/upload') {
     resetContract()
@@ -172,10 +174,12 @@ const isFilled = computed(() => {
 
 function setFile(event) {
   let file = event.target.files[0]
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/tif', 'image/tiff']
 
   if (!allowedTypes.includes(file.type)) {
-    alert('JPEG 또는 PNG 파일만 업로드 가능합니다.')
+    toast.error('파일 형식을 확인해주세요', {
+      timeout: 5000,
+    })
     return
   }
 
@@ -215,7 +219,9 @@ function execDaumPostcode() {
       var addr = ''
 
       if (data.userSelectedType === 'R') {
-        alert('지번 주소를 선택해주세요')
+        toast.error('지번주소를 입력해주세요', {
+          timeout: 5000,
+        })
       } else {
         addr = data.jibunAddress
       }

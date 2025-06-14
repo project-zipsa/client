@@ -132,6 +132,7 @@ import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import router from '@/router'
 import { useMarketStore } from '@/stores/markets/market'
 import { computed, onMounted, ref } from 'vue'
+import { POSITION, useToast } from 'vue-toastification'
 
 const marketStore = useMarketStore()
 let { uploadMarket } = marketStore
@@ -203,7 +204,8 @@ function execDaumPostcode() {
 
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') {
-        alert('지번 주소를 선택해주세요')
+        const toast = useToast()
+        toast.error('지번 주소를 입력해주세요', { timeout: 5000 })
         address.value = ''
       } else {
         // 사용자가 지번 주소를 선택했을 경우(J)
