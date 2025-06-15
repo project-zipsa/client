@@ -24,11 +24,10 @@
 
           <!-- 컴포넌트화 필요 -->
           <form action="" class="mb-3">
-            <div class="flex w-full text-center">
-              <input id="contract" type="file" @change="setFile" class="hidden" />
+            <div class="flex flex-col w-full text-center">
+              <input id="contract" multiple type="file" @change="setFile" class="hidden" />
 
               <label
-                v-if="!isUploaded.contract"
                 for="contract"
                 class="w-full border-dashed border-[1px] border-[black] rounded py-5 flex items-center justify-center"
               >
@@ -36,16 +35,21 @@
                 내 컴퓨터 찾기
               </label>
 
-              <div v-else class="flex w-full">
-                <p class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2">
-                  선택된 파일: {{ uploadedFiles.contract?.name }}
-                </p>
-                <button
-                  @click="resetFile"
-                  class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
-                >
-                  X
-                </button>
+              <div v-for="(item, index) in uploadedFiles.contract" :key="index">
+                <div v-if="!!isUploaded.contract" class="flex w-full">
+                  <p
+                    class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2"
+                  >
+                    선택된 파일: {{ item?.name }}
+                  </p>
+                  <button
+                    @click.prevent="resetFile"
+                    id="contract"
+                    class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
+                  >
+                    X
+                  </button>
+                </div>
               </div>
             </div>
           </form>
@@ -54,26 +58,31 @@
         <div class="bg-white flex flex-col mr-6 p-6 border-gray border-[1px] rounded">
           <h2 class="text-[16px] mb-5">등기부등본 업로드</h2>
           <form action="" class="mb-3">
-            <div class="flex w-full text-center">
-              <input id="registerCopy" type="file" @change="setFile" class="hidden" />
+            <div class="flex flex-col w-full text-center">
+              <input id="registerCopy" multiple type="file" @change="setFile" class="hidden" />
               <label
-                v-if="!isUploaded.registerCopy"
                 for="registerCopy"
                 class="w-full border-dashed border-[1px] border-[black] rounded py-5 flex items-center justify-center"
               >
                 <img src="@/assets/laptop.svg" alt="" class="mx-2" />
                 내 컴퓨터 찾기
               </label>
-              <div v-else class="flex w-full">
-                <p class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2">
-                  선택된 파일: {{ uploadedFiles.registerCopy?.name }}
-                </p>
-                <button
-                  @click="resetFile"
-                  class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
-                >
-                  X
-                </button>
+
+              <div v-for="(item, index) in uploadedFiles.registerCopy" :key="index">
+                <div v-if="!!isUploaded.registerCopy" class="flex w-full">
+                  <p
+                    class="text-gray-700 flex-1 border border-black border-r-0 rounded-l px-4 py-2"
+                  >
+                    선택된 파일: {{ item?.name }}
+                  </p>
+                  <button
+                    @click.prevent="resetFile"
+                    id="register"
+                    class="border border-black border-l-0 rounded-r px-4 py hover:bg-red-100 transition"
+                  >
+                    X
+                  </button>
+                </div>
               </div>
             </div>
           </form>
@@ -164,8 +173,9 @@ onMounted(() => {
   }
 })
 
-const uploadedFiles = reactive({ contract: null, registerCopy: null })
+const uploadedFiles = reactive({ contract: [], registerCopy: [] })
 const isUploaded = reactive({ contract: false, registerCopy: false })
+
 let address = ref('')
 
 const isFilled = computed(() => {
@@ -184,10 +194,10 @@ function setFile(event) {
   }
 
   if (event.target.id == 'contract') {
-    uploadedFiles.contract = file
+    uploadedFiles.contract.push(file)
     isUploaded.contract = true
   } else {
-    uploadedFiles.registerCopy = file
+    uploadedFiles.registerCopy.push(file)
     isUploaded.registerCopy = true
   }
   console.log(uploadedFiles)
@@ -195,10 +205,10 @@ function setFile(event) {
 
 function resetFile(event) {
   if (event.target.id == 'contract') {
-    uploadedFiles.contract = null
+    uploadedFiles.contract = []
     isUploaded.contract = false
   } else {
-    uploadedFiles.registerCopy = null
+    uploadedFiles.registerCopy = []
     isUploaded.registerCopy = false
   }
 }
@@ -244,19 +254,22 @@ function addressToCode() {
 }
 
 // post
-const sendContract = async (file) => {
+const sendContract = async (files) => {
   const formData = new FormData()
   const userId = localStorage.getItem('userId')
-  formData.append('leaseContractFiles', file)
+  for (const file of files) {
+    formData.append('leaseContractFiles', file)
+  }
   formData.append('userId', userId)
-
   return await uploadContract(formData)
 }
 
-const sendRegister = async (file) => {
+const sendRegister = async (files) => {
   const formData = new FormData()
   const userId = localStorage.getItem('userId')
-  formData.append('landTitles', file)
+  for (const file of files) {
+    formData.append('landTitles', file)
+  }
   formData.append('userId', userId)
 
   return await uploadRegister(formData)
@@ -270,9 +283,13 @@ const analysis = async () => {
 
   await router.push('/docu/loading')
 
-  await sendContract(uploadedFiles.contract)
-  await sendRegister(uploadedFiles.registerCopy)
-  await uploadAnalysis(formData)
+  try {
+    await sendContract(uploadedFiles.contract)
+    await sendRegister(uploadedFiles.registerCopy)
+    await uploadAnalysis(formData)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // -- post
