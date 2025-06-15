@@ -24,7 +24,7 @@
                 :placeholder="field.placeholder"
                 v-model="formData[field.id]"
               />
-              <div v-if="field.errorMessage" class="error-message">
+              <div v-if="!errMes[field.id]" class="error-message">
                 {{ field.errorMessage }}
               </div>
             </div>
@@ -41,8 +41,10 @@
 <script setup lang="ts">
 import { useJoinStore } from '@/stores/users/join'
 import { computed, reactive, ref } from 'vue'
+import { useToast } from 'vue-toastification'
 const joinStore = useJoinStore()
 const { userJoin } = joinStore
+const toast = useToast()
 
 const formData = reactive({
   userName: '',
@@ -50,24 +52,42 @@ const formData = reactive({
   password: '',
   confirmPassword: '',
 })
+const errMes = reactive({
+  userName: false,
+  loginId: false,
+  password: false,
+  confirmPassword: false,
+})
 
 const isFilled = computed(() => {
   if (formData.userName.length < 2) {
+    errMes.userName = false
     return false
+  } else {
+    errMes.userName = true
   }
 
   const idRegex = /^[a-zA-Z0-9]{5,15}$/
   if (!idRegex.test(formData.loginId)) {
+    errMes.loginId = false
     return false
+  } else {
+    errMes.loginId = true
   }
 
   const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,16}$/
   if (!pwRegex.test(formData.password)) {
+    errMes.password = false
     return false
+  } else {
+    errMes.password = true
   }
 
   if (formData.password !== formData.confirmPassword) {
+    errMes.confirmPassword = false
     return false
+  } else {
+    errMes.confirmPassword = true
   }
   return true
 })
@@ -85,9 +105,9 @@ const join = async () => {
     userName: formData.userName,
   })
   if (joinStore.statusCode == 201) {
-    alert('회원가입이 완료되었습니다')
+    toast.success('회원가입이 완료되었습니다.')
   } else if (joinStore.statusCode == 400) {
-    alert('이미 존재하는 아이디입니다')
+    toast.error('이미 존재하는 아이디입니다.')
   }
 }
 
@@ -97,14 +117,14 @@ const formFields = [
     label: '이름(닉네임)',
     required: true,
     placeholder: '두 글자 이상 입력해주세요',
-    errorMessage: '',
+    errorMessage: '두 글자 이상 입력해주세요',
   },
   {
     id: 'loginId',
     label: '아이디',
     required: true,
     placeholder: '5~10자의 영문 대/소문자를 사용해 주세요.',
-    errorMessage: '',
+    errorMessage: '5~10자의 영문 대/소문자를 사용해 주세요.',
   },
   {
     id: 'password',
@@ -120,7 +140,7 @@ const formFields = [
     label: '비밀번호 확인',
     required: true,
     placeholder: '비밀번호와 동일하게 입력하셔야 합니다.',
-    errorMessage: '', //입력하신 비밀번호와 일치하지 않습니다.
+    errorMessage: '입력하신 비밀번호와 일치하지 않습니다.', //입력하신 비밀번호와 일치하지 않습니다.
     type: 'password',
   },
 ]
@@ -286,7 +306,7 @@ const formFields = [
 .signup-button {
   width: 100%;
   height: 48px;
-  margin-top: 25px;
+  margin-top: 6px;
   background-color: #ffd43b;
   border-radius: 8px;
   text-align: center;

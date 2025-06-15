@@ -45,11 +45,13 @@ import router from '@/router'
 import { useLoginStore } from '@/stores/users/login'
 import { useInfoStore } from '@/stores/users/user'
 import { computed, reactive, ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const loginStore = useLoginStore()
 const userStore = useInfoStore()
 const { userLogin } = loginStore
 const { getUser, resetUser } = userStore
+const toast = useToast()
 
 const userData = reactive({
   loginId: '',
@@ -67,6 +69,7 @@ const login = async () => {
   })
   if (loginStore.statusCode == 200) {
     const accessToken = loginStore.contents.accessToken
+    localStorage.setItem('accessToken', accessToken)
 
     await getUser({ loginId: userData.loginId })
 
@@ -76,7 +79,7 @@ const login = async () => {
     alert('환영합니다.')
     router.push('/')
   } else {
-    alert('없는 사용자거나 비밀번호가 일치하지 않습니다')
+    toast.error('없는 사용자거나 비밀번호가 일치하지 않습니다')
   }
 }
 </script>
