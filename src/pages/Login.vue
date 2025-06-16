@@ -75,8 +75,8 @@ const login = async () => {
 
     loginStore.contents.isLogin = true
     userStore.contents.username = userStore.contents.username
+    localStorage.setItem('userId', userStore.contents.userId)
 
-    alert('환영합니다.')
     router.push('/')
   } else {
     toast.error('없는 사용자거나 비밀번호가 일치하지 않습니다')
