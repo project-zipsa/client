@@ -183,21 +183,29 @@ const isFilled = computed(() => {
 })
 
 function setFile(event) {
-  let file = event.target.files[0]
+  let files = event.target.files
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/tif', 'image/tiff']
-
-  if (!allowedTypes.includes(file.type)) {
-    toast.error('파일 형식을 확인해주세요', {
-      timeout: 5000,
-    })
-    return
+  console.log(files)
+  for (let file of files) {
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('파일 형식을 확인해주세요', {
+        timeout: 5000,
+      })
+      return
+    }
   }
 
   if (event.target.id == 'contract') {
-    uploadedFiles.contract.push(file)
+    for (let file of files) {
+      uploadedFiles.contract.push(file)
+    }
+
     isUploaded.contract = true
   } else {
-    uploadedFiles.registerCopy.push(file)
+    for (let file of files) {
+      uploadedFiles.registerCopy.push(file)
+    }
+
     isUploaded.registerCopy = true
   }
   console.log(uploadedFiles)
