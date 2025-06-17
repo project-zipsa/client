@@ -269,7 +269,8 @@ const sendContract = async (files) => {
     formData.append('leaseContractFiles', file)
   }
   formData.append('userId', userId)
-  return await uploadContract(formData)
+
+  contractStore.payload = formData
 }
 
 const sendRegister = async (files) => {
@@ -280,24 +281,21 @@ const sendRegister = async (files) => {
   }
   formData.append('userId', userId)
 
-  return await uploadRegister(formData)
+  registerStore.payload = formData
 }
 
-const analysis = async () => {
+const analysis = () => {
+  sendContract(uploadedFiles.contract)
+  sendRegister(uploadedFiles.registerCopy)
+
   let { sigunguCd, bjdongCd } = addressToCode()
   const formData = new FormData()
   formData.append('sigunguCd', sigunguCd)
   formData.append('bjdongCd', bjdongCd)
 
-  await router.push('/docu/loading')
+  analysisStore.payload = formData
 
-  try {
-    await sendContract(uploadedFiles.contract)
-    await sendRegister(uploadedFiles.registerCopy)
-    await uploadAnalysis(formData)
-  } catch (err) {
-    console.log(err)
-  }
+  router.push('/docu/loading')
 }
 
 // -- post

@@ -28,21 +28,32 @@ import router from '@/router'
 import { useAnalysisStore } from '@/stores/docs/analysis'
 import { useContractStore } from '@/stores/docs/contract'
 import { useRegisterStore } from '@/stores/docs/register'
-import { watch } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const contractStore = useContractStore()
 const registerStore = useRegisterStore()
 const analysisStore = useAnalysisStore()
+const contractPayload = contractStore.payload
+const registerPayload = registerStore.payload
+const analysisPayload = analysisStore.payload
 
+onMounted(async () => {
+  try {
+    console.log(contractPayload, registerPayload, analysisPayload)
+    await registerStore.uploadRegister(registerPayload)
+    await contractStore.uploadContract(contractPayload)
+    await analysisStore.uploadAnalysis(analysisPayload)
+  } catch (e) {
+    console.log(e)
+  }
+})
 watch(
   () => [contractStore.contents, registerStore.contents, analysisStore.contents],
   ([contract, register, analysis]) => {
-    const start = performance.now()
     console.log('watch:', contract, register, analysis)
-    if (register && analysis) {
+    if (contract && register && analysis) {
       const end = performance.now()
-      console.log(`실행시간 ${(end - start).toFixed(2)}ms`)
       router.push('/docu/result')
     }
   },

@@ -6,6 +6,7 @@ const accessToken = localStorage.getItem('accessToken')
 
 export const useContractStore = defineStore('contractStore', {
   state: () => ({
+    payload: null,
     contents: null,
   }),
   actions: {
@@ -29,6 +30,7 @@ export const useContractStore = defineStore('contractStore', {
     },
     reset() {
       this.contents = null
+      this.payload = null
     },
   },
 })

@@ -311,13 +311,13 @@ const totalAssessment = computed(() => {
       img: safe,
       grade: '안전',
     }
-  } else if (totalScore.value > 0 && totalScore.value < 3) {
+  } else if (totalScore.value > 0 && totalScore.value < 6) {
     return {
       result: '경고 / 주의',
       img: caution,
       grade: '주의',
     }
-  } else if (totalScore.value >= 3 && totalScore.value < 11) {
+  } else if (totalScore.value >= 6 && totalScore.value < 11) {
     return {
       result: '높은 위험',
       img: warning,

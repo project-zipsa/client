@@ -6,6 +6,7 @@ const accessToken = localStorage.getItem('accessToken')
 
 export const useRegisterStore = defineStore('registerStore', {
   state: () => ({
+    payload: null,
     contents: null,
   }),
   actions: {
@@ -30,6 +31,7 @@ export const useRegisterStore = defineStore('registerStore', {
     },
     reset() {
       this.contents = null
+      this.payload = null
     },
   },
 })

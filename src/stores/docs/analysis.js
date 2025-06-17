@@ -6,6 +6,7 @@ const accessToken = localStorage.getItem('accessToken')
 
 export const useAnalysisStore = defineStore('analysisStore', {
   state: () => ({
+    payload: null,
     contents: null,
   }),
   actions: {
@@ -28,6 +29,7 @@ export const useAnalysisStore = defineStore('analysisStore', {
     },
     reset() {
       this.contents = null
+      this.payload = null
     },
   },
 })
