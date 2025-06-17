@@ -10,6 +10,7 @@
           <p>내 계약의 안정성 등급은 안전 / 주의 / 높은위험 / 심각한 위험 중</p>
           <p class="font-bold">{{ totalAssessment.grade }} 등급이에요</p>
           <p>{{ parseInt(dangerLists.length) }}개의 위험 요소가 발견되었어요</p>
+          <p>{{ totalScore }}점입니다</p>
         </div>
       </div>
 
