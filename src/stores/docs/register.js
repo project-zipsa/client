@@ -12,10 +12,6 @@ export const useRegisterStore = defineStore('registerStore', {
   actions: {
     async uploadRegister(payload) {
       try {
-        console.log('Uploading land titles...')
-        for (let [key, value] of payload.entries()) {
-          console.log(`${key}:`, value)
-        }
         const { data } = await axios.post(`${baseURL}zipsa/clova/land-titles`, payload, {
           withCredentials: true,
           headers: {
@@ -24,7 +20,6 @@ export const useRegisterStore = defineStore('registerStore', {
         })
 
         this.contents = data
-        console.log('Land titles uploaded successfully:', data)
       } catch (err) {
         console.log(err)
       }

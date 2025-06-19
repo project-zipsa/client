@@ -12,10 +12,6 @@ export const useContractStore = defineStore('contractStore', {
   actions: {
     async uploadContract(payload) {
       try {
-        console.log('Uploading lease contracts...')
-        for (let [key, value] of payload.entries()) {
-          console.log(`${key}:`, value)
-        }
         const { data } = await axios.post(`${baseURL}zipsa/clova/lease-contracts`, payload, {
           withCredentials: true,
           headers: {
@@ -23,7 +19,6 @@ export const useContractStore = defineStore('contractStore', {
           },
         })
         this.contents = data
-        console.log('Lease contracts uploaded successfully:', data)
       } catch (err) {
         console.log(err)
       }

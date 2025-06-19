@@ -110,54 +110,82 @@
 import MainHeaderComponent from '@/components/Docu/MainHeaderComponent.vue'
 import CriterionComponent from '@/components/Docu/CriterionComponent.vue'
 import analysisData from '@/assets/js/Analysis'
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import safe from '@/assets/contract_safe.svg'
 import caution from '@/assets/contract_caution.svg'
 import warning from '@/assets/contract_warning.svg'
 import dangerous from '@/assets/contract_dangerous.svg'
 import { useContractStore } from '@/stores/docs/contract'
-import { useRegisterStore } from '@/stores/docs/register'
 import { useAnalysisStore } from '@/stores/docs/analysis'
+import axios from 'axios'
 
 const contractStore = useContractStore()
-const registerStore = useRegisterStore()
 const analysisStore = useAnalysisStore()
+
+const userId = computed(() => {
+  return localStorage.getItem('userId')
+})
+const accessToken = computed(() => {
+  return localStorage.getItem('accessToken')
+})
+const contractResult2 = ref(null)
+onMounted(async () => {
+  try {
+    const response = await axios.get(
+      `${import.meta.env.VITE_API_SERVER}zipsa/clova/lease-contracts`,
+      {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${accessToken.value}`,
+        },
+        params: {
+          userId: userId.value,
+        },
+      },
+    )
+    contractResult2.value = response.data.data
+    console.log(contractResult2.value)
+  } catch (err) {
+    console.error('데이터 가져오기 실패:', err)
+  }
+})
 
 const contractResult = computed(
   () =>
     contractStore.contents?.data || {
       data: {
-        임대인명: '결과에러',
-        전체주소: '서울특별시 성북구 길음동 1192 비전타운 제2층 201호()',
+        임대인명: '강보라',
+        전체주소: '서울특별시 성북구 길음동 1192 비전타운 제2층 201호',
         건물명: '비전타운',
         '임대차 시작일': '2024-04-01',
         '임대차 종료일': '2026-03-31',
-        전용면적: '29.2',
-        '총 보증금': '140000',
-        잔금: '133000',
-        층수: '2',
+        계약일: '2024-03-05',
+        전용면적: 29.2,
+        '총 보증금': 140000000,
+        잔금: 133000000,
+        층수: 2,
         건물용도: '다세대주택',
       },
       '계약 위험 분석 결과': {
         '보증금 반환 조건 명시 여부': {
-          답변: '아니오',
-          경고: '계약서에 보증금 반환 시기가 명시되어 있지 않음. 반환 시점을 명확히 하거나, 확정일자를 등록하는 등의 조치가 필요.',
+          답변: '예',
+          경고: '',
           '근거 조항': '제5조',
         },
         '과도한 위약금 조항 존재 여부': {
           답변: '아니오',
           경고: '',
-          '근거 조항': '',
+          '근거 조항': '제6조',
         },
         '일방적인 계약 해지 조건 존재 여부': {
           답변: '예',
-          경고: '임대인이 임차인의 위반 사항에 대해 즉시 계약을 해지할 수 있는 권한을 가지고 있음. 이는 임차인에게 불리할 수 있으니, 이 부분에 대해 재협의가 필요.',
+          경고: '임차인이 제3조를 위반하였을 때 임대인은 즉시 본 계약을 해지 할 수 있습니다. 이는 일방적인 계약 해지 조건이므로 주의가 필요합니다.',
           '근거 조항': '제4조',
         },
         '원상복구 범위 불명확 조항 존재 여부': {
           답변: '아니오',
           경고: '',
-          '근거 조항': '',
+          '근거 조항': '특약사항 4',
         },
         '임대인 정보 불일치 여부': {
           답변: '아니오',
@@ -167,12 +195,12 @@ const contractResult = computed(
         '계약 만료일 미기재 또는 불명확 여부': {
           답변: '아니오',
           경고: '',
-          '근거 조항': '',
+          '근거 조항': '제2조',
         },
         '특약 조항의 모호성 또는 불리한 해석 가능성 여부': {
           답변: '아니오',
           경고: '',
-          '근거 조항': '',
+          '근거 조항': '특약사항',
         },
         '기타 불리한 조항 존재 여부 분석': {
           답변: '아니오',
@@ -181,33 +209,27 @@ const contractResult = computed(
         },
       },
       '위험 요소별 점수': {
-        '보증금 반환 조건': '1',
-        '과도한 위약금 조항': '0',
-        '일방적인 계약 해지 조건': '2',
-        '원상복구 범위 불명확 조항': '0',
-        '임대인 정보 불일치': '0',
-        '계약 만료일 미기재 또는 불명확': '0',
-        '특약 조항의 모호성': '0',
-        '기타 불리한 조항': '0',
+        '보증금 반환 조건': 0,
+        '과도한 위약금 조항': 0,
+        '일방적인 계약 해지 조건': 0,
+        '원상복구 범위 불명확 조항': 0,
+        '임대인 정보 불일치': 0,
+        '계약 만료일 미기재 또는 불명확': 0,
+        '특약 조항의 모호성': 0,
+        '기타 불리한 조항': 0,
       },
-      '전체 위험 요소 수': '2',
-      '최고 위험 점수': '2',
-      '전체 위험도 점수': '3',
+      '전체 위험 요소 수': 1,
+      '최고 위험 점수': 2,
+      '전체 위험도 점수': 2,
       '사기 유형 및 대처 방안': {
-        '보증금 반환 조건': {
-          '사기 유형': '보증금 반환을 지연하거나 회피하는 경우가 있음.',
-          '대처 방안': '반환 시점 명확히 명시, 확정일자 등록, 전세권 설정 검토, 임대인 계좌 확인.',
-        },
         '일방적인 계약 해지 조건': {
-          '사기 유형': '임대인이 일방 해지로 계약 종료를 주장할 수 있음.',
-          '대처 방안': '쌍방 해지 조건으로 명시하거나 임차인 권리 보호 조항 추가.',
+          '사기 유형': '임대인이 일방 해지로 계약 종료를 주장할 수 있습니다',
+          '대처 방안': '쌍방 해지 조건으로 명시하거나 임차인 권리 보호 조항 추가합니다',
         },
       },
       '조항별 요약 및 설명': {
-        '보증금 반환 조건':
-          '계약 종료 후 임차인에게 보증금을 반환하며, 연체 임대료 또는 손해배상금이 있을 때는 이들을 제하고 그 잔액을 반환한다는 내용이 있음. 하지만 구체적인 반환 시점이 명시되어 있지 않음.',
         '일방적인 계약 해지 조건':
-          '임차인이 계약을 위반하였을 때, 임대인이 즉시 계약을 해지할 수 있다는 내용이 있어요. 이는 임차인에게 불리한 조항이므로 재협의가 필요.',
+          '임차인이 제3조를 위반하였을 때 임대인은 즉시 본 계약을 해지 할 수 있습니다. 이는 일방적인 계약 해지 조건이므로 주의가 필요합니다.',
       },
     },
 )
@@ -215,17 +237,13 @@ const analysisResult = computed(
   () =>
     analysisStore.contents || {
       '1번 항목': 'True',
-      '2번 항목': 'False',
+      '2번 항목': 'True',
       '3번 항목': 'True',
-      '4번 항목': 'A',
-      '5번 항목': '불확실',
-      '6번 항목': 'False',
+      '4번 항목': '해당없음',
+      '5번 항목': 'True',
+      '6번 항목': '해당없음',
       '7번 항목': 'False',
       '8번 항목': 'False',
-      '9번 항목': 'False',
-      '10번 항목': 'D',
-      '11번 항목': 'False',
-      '12번 항목': 'False',
     },
 )
 
@@ -300,7 +318,10 @@ const totalScore = computed(() => {
   const analysisScore = filteredResults.value
     .filter((x) => x.uncertain !== true)
     .map((x) => x['점수'])
-
+  console.log(contractScore, analysisScore)
+  if (analysisScore.length < 1) {
+    return contractScore
+  }
   return contractScore + analysisScore.reduce((a, b) => a + b)
 })
 
