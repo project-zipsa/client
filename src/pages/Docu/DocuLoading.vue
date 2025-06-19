@@ -52,7 +52,7 @@ watch(
   () => [contractStore.contents, registerStore.contents, analysisStore.contents],
   ([contract, register, analysis]) => {
     console.log('watch:', contract, register, analysis)
-    if (contract && register && analysis) {
+    if (register && analysis) {
       const end = performance.now()
       router.push('/docu/result')
     }
